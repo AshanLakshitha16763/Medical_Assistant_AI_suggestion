@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import SuggestionsDropdown from './SuggestionsDropdown';
+import './SearchBar.css'; 
+
 
 function SearchBar() {
     const [input, setInput] = useState("");
@@ -21,20 +24,22 @@ function SearchBar() {
         }
     };
 
+    const handleSuggestionClick = (suggestion) => {
+        setInput(suggestion);
+        setSuggestions([]); // Clear suggestions after selection
+    };
+
     return (
-        <div>
-            <input 
+        <div className="search-bar-container">
+            <input
                 type="text"
                 value={input}
                 onChange={handleChange}
-                placeholder="Type something..."
+                placeholder="Type something here..."
+                className="search-bar"
             />
             {suggestions.length > 0 && (
-                <ul>
-                    {suggestions.map((suggestion, index) => (
-                        <li key={index}>{suggestion}</li>
-                    ))}
-                </ul>
+                <SuggestionsDropdown suggestions={suggestions} onClick={handleSuggestionClick} />
             )}
         </div>
     );
