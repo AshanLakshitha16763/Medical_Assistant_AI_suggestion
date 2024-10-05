@@ -1,5 +1,5 @@
 #llamaindex-node
-llamaindex-node/node_modules
+node_modules
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
