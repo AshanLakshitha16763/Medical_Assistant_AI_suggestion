@@ -1,9 +1,11 @@
 import React from 'react';
 import './SuggestionsDropdown.css';
 
-function SuggestionsDropdown({ suggestions,onClick }) {
+function SuggestionsDropdown({ suggestions,onClick, position }) {
     return (
-        <div className="suggestions-dropdown">
+        <div className="suggestions-dropdown"
+        style={{ top: `${position.top}px`, left: `${position.left}px` }}
+        >
             {suggestions.map((suggestion, index) => (
                 <div 
                     key={index} 
