@@ -3,13 +3,17 @@ Medical_Assistant is a system that uses AI-driven speech-to-text and text-genera
 
 
 ## Next_Word_Prediction
-```
-pip install tensorflow pandas numpy nltk
-```
-* nltk - Natural Language Toolkit
-* tokenizer = RegexpTokenizer(r'\w+')
-* data - data/fake_or_real_news.csv
 
+* dependencies:
+    * installing pytorch: https://pytorch.org/get-started/locally/
+```
+pip install transformers==4.30.2
+pip install sacremoses
+```
+* trainer.py
+  ```
+  pip install transformers[torch] accelerate
+  ```
 
 ## Backend_Configuration
 
