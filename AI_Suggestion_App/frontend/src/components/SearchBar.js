@@ -213,10 +213,89 @@
 
 
 
+// import axios from 'axios';
+// import SuggestionsDropdown from './SuggestionsDropdown';
+// import './SearchBar.css'; 
+// import React, { useState, useEffect } from 'react';
+
+// function SearchBar() {
+//     const [input, setInput] = useState("");
+//     const [suggestions, setSuggestions] = useState([]);
+//     const [placeholder, setPlaceholder] = useState("Loading prompt...");
+
+//     // Function to fetch the initial placeholder prompt
+//     const fetchInitialPlaceholder = async () => {
+//         try {
+//             const response = await axios.get('http://127.0.0.1:5000/get-first-prompt');
+//             const firstPrompt = response.data.prompt;
+//             setPlaceholder(firstPrompt || "Type something here...");
+//         } catch (error) {
+//             console.error("Error fetching placeholder prompt:", error);
+//             setPlaceholder("Type something here...");
+//         }
+//     };
+
+//     // Fetch the initial placeholder when the component mounts
+//     useEffect(() => {
+//         fetchInitialPlaceholder();
+//     }, []);
+
+//     // Handle input changes and fetch suggestions
+//     const handleChange = async (e) => {
+//         const value = e.target.value;
+//         setInput(value);
+
+//         if (value.length > 0) {
+//             try {
+//                 const response = await axios.post('http://127.0.0.1:5000/suggest', { input: value });
+//                 const suggestionsList = response.data.suggestions;
+//                 setSuggestions(suggestionsList);
+
+//                 // Dynamically set the placeholder to the first suggestion
+//                 if (suggestionsList.length > 0) {
+//                     setPlaceholder(suggestionsList[0]); // Update placeholder to best suggestion
+//                 } else {
+//                     setPlaceholder("Type something here..."); // Reset if no suggestions
+//                 }
+//             } catch (error) {
+//                 console.error("Error fetching suggestions:", error);
+//             }
+//         } else {
+//             setSuggestions([]);
+//             fetchInitialPlaceholder(); // Reset placeholder if input is cleared
+//         }
+//     };
+
+//     // Handle suggestion click
+//     const handleSuggestionClick = (suggestion) => {
+//         setInput(suggestion);
+//         setSuggestions([]); // Clear suggestions after selection
+//         setPlaceholder(suggestion); // Set the placeholder to the selected suggestion
+//     };
+
+//     return (
+//         <div className="search-bar-container">
+//             <input
+//                 type="text"
+//                 value={input}
+//                 onChange={handleChange}
+//                 placeholder={placeholder} // Show best suggestion as placeholder
+//                 className="search-bar"
+//             />
+//             {suggestions.length > 0 && (
+//                 <SuggestionsDropdown suggestions={suggestions} onClick={handleSuggestionClick} />
+//             )}
+//         </div>
+//     );
+// }
+
+// export default SearchBar;
+
+
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import SuggestionsDropdown from './SuggestionsDropdown';
-import './SearchBar.css'; 
-import React, { useState, useEffect } from 'react';
+import './SearchBar.css';
 
 function SearchBar() {
     const [input, setInput] = useState("");
@@ -237,6 +316,7 @@ function SearchBar() {
 
     // Fetch the initial placeholder when the component mounts
     useEffect(() => {
+        setPlaceholder("Type something here...");
         fetchInitialPlaceholder();
     }, []);
 
@@ -262,7 +342,9 @@ function SearchBar() {
             }
         } else {
             setSuggestions([]);
-            fetchInitialPlaceholder(); // Reset placeholder if input is cleared
+             // Reset placeholder if input is cleared
+            setPlaceholder("Type something here...");
+            fetchInitialPlaceholder();
         }
     };
 
