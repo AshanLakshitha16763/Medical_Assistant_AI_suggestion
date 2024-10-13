@@ -7,6 +7,7 @@ function SearchBar() {
     const [input, setInput] = useState("");
     const [suggestions, setSuggestions] = useState([]);
     const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
+    const [selectedIndex, setSelectedIndex] = useState(-1);
     const inputRef = useRef(null);
     const containerRef = useRef(null);
 
@@ -20,7 +21,7 @@ function SearchBar() {
     const handleChange = async (e) => {
         const value = e.target.value;
         setInput(value);
-
+        setSelectedIndex(-1);
         updateDropdownPosition();
 
         if (value.length > 0) {
@@ -38,6 +39,34 @@ function SearchBar() {
     const handleSuggestionClick = (suggestion) => {
         setInput(suggestion);
         setSuggestions([]);
+        setSelectedIndex(-1);
+    };
+
+    const handleKeyDown = (e) => {
+        if (suggestions.length > 0) {
+            switch (e.key) {
+                case 'ArrowUp':
+                    e.preventDefault();
+                    setSelectedIndex(prevIndex => 
+                        prevIndex <= 0 ? suggestions.length - 1 : prevIndex - 1
+                    );
+                    break;
+                case 'ArrowDown':
+                    e.preventDefault();
+                    setSelectedIndex(prevIndex => 
+                        prevIndex >= suggestions.length - 1 ? 0 : prevIndex + 1
+                    );
+                    break;
+                case 'Enter':
+                    if (selectedIndex !== -1) {
+                        e.preventDefault();
+                        handleSuggestionClick(suggestions[selectedIndex]);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     };
 
     const updateDropdownPosition = () => {
@@ -48,8 +77,8 @@ function SearchBar() {
             const textWidth = getTextWidth(textBeforeCaret, getComputedStyle(inputRef.current));
 
             setDropdownPosition({
-                top: inputRect.height + 60, // Added 5 pixels to move the dropdown lower
-                left: Math.min(textWidth, inputRect.width - 10) // Ensure dropdown doesn't go beyond input width
+                top: inputRect.height + 60,
+                left: Math.min(textWidth, inputRect.width - 10)
             });
         }
     };
@@ -68,6 +97,7 @@ function SearchBar() {
                 type="text"
                 value={input}
                 onChange={handleChange}
+                onKeyDown={handleKeyDown}
                 onKeyUp={updateDropdownPosition}
                 onClick={updateDropdownPosition}
                 placeholder="Type something here..."
@@ -78,6 +108,7 @@ function SearchBar() {
                     suggestions={suggestions}
                     onClick={handleSuggestionClick}
                     position={dropdownPosition}
+                    selectedIndex={selectedIndex}
                 />
             )}
         </div>
