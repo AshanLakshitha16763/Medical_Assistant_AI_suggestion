@@ -39,5 +39,32 @@ pip install sacremoses
     ```
     python -m venv .venv
     ```
+    2. Activate the environment:
+
+    ```
+    source venv/bin/activate
+    ```
+    3. Install Dependencies(Can change According to your requirement):
+
+    ```
+    pip install Flask transformers tourch
+    ```
+
+> For ```Windows```, below I provided document to create Virtual Environment. 
+
+If you want to get further more details refer; </br>https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/ .
+
+### After creating Virtual Environment,run below commond in your terminal:
+
+```
+run app.py
+```
+It will run on your browser. 
+
+### And also you want to stop the server:
+
+In your terminal, press ```c``` + ```control``` keys.
+
+
 
 
