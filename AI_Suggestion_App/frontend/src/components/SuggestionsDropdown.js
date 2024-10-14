@@ -91,19 +91,19 @@
 import React from 'react';
 import './SuggestionsDropdown.css';
 
-function SuggestionsDropdown({ suggestions, onClick, position }) {
-    // Make sure position has default values if not provided
-    const { top = 0, left = 0 } = position || {};
-
+function SuggestionsDropdown({ suggestions, onClick, position, selectedIndex }) {
     return (
         <div 
             className="suggestions-dropdown"
-            style={{ position: 'absolute', top: `${top}px`, left: `${left}px` }} // Use the passed position
+            style={{
+                top: `${position.top}px`,
+                left: `${position.left}px`,
+            }}
         >
             {suggestions.map((suggestion, index) => (
                 <div 
-                    key={index} 
-                    className="suggestion-item"
+                    key={index}
+                    className={`suggestion-item ${index === selectedIndex ? 'selected' : ''}`}
                     onClick={() => onClick(suggestion)}
                 >
                     {suggestion}
