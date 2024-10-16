@@ -2,7 +2,28 @@
 Medical_Assistant is a system that uses AI-driven speech-to-text and text-generation technologies to help doctors that creates patient symptom lists and prescriptions.
 
 
+## Frontend_Configuration
+
+### Install dependencies for the React frontend:
+
+* Go to frontend folder:
+
+  ```
+    cd Medical_Assistant/AI_Suggestion_App/frontend
+
+    ```
+    npm start
+    ```
+
+It will run on your browser.
+
+### And also you want to stop the server:
+
+In your terminal, press ```c``` + ```control``` keys.
+
+
 ## Next_Word_Prediction
+
 ```
 pip install tensorflow pandas numpy nltk
 ```
@@ -23,11 +44,11 @@ pip install tensorflow pandas numpy nltk
 
 ### Create and active Virtual Environment:
 
-* When you are developing the backend using ```Python``` (e.g., a Flask API), it's a good idea to use a virtual environment to manage Python dependencies separately from other projects.
+ * When you are developing the backend using ```Python``` (e.g., a Flask API), it's a good idea to use a virtual environment to manage Python dependencies separately from other projects.
 
  * Virtual environments keep all the required packages (like Flask, transformers, etc.) isolated, so they don't interfere with system Python packages or other projects.
 
-* following below steps to use a virtual environment:(```For macOs```)
+ * following below steps to use a virtual environment:(```For macOs```)
 
 
     1. Create the environment:

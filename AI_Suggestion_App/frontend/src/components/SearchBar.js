@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import SuggestionsDropdown from './SuggestionsDropdown';
@@ -18,14 +19,16 @@ function SearchBar() {
         };
     }, [input]);
 
+    // Handle input changes and fetch suggestions
     const handleChange = async (e) => {
         const value = e.target.value;
         setInput(value);
-        setSelectedIndex(-1);
+        setSelectedIndex(-1); // Reset selected index on input change
         updateDropdownPosition();
 
         if (value.length > 0) {
             try {
+                // Fetch suggestions from the backend based on user input
                 const response = await axios.post('http://127.0.0.1:5000/suggest', { input: value });
                 setSuggestions(response.data.suggestions);
             } catch (error) {
@@ -36,6 +39,7 @@ function SearchBar() {
         }
     };
 
+    // Handle suggestion click
     const handleSuggestionClick = (suggestion) => {
         setInput(suggestion);
         setSuggestions([]);
@@ -47,15 +51,19 @@ function SearchBar() {
             switch (e.key) {
                 case 'ArrowUp':
                     e.preventDefault();
-                    setSelectedIndex(prevIndex => 
-                        prevIndex <= 0 ? suggestions.length - 1 : prevIndex - 1
-                    );
+                    setSelectedIndex(prevIndex => {
+                        const newIndex = prevIndex <= 0 ? suggestions.length - 1 : prevIndex - 1;
+                        setInput(suggestions[newIndex]); // Update input to the highlighted suggestion
+                        return newIndex;
+                    });
                     break;
                 case 'ArrowDown':
                     e.preventDefault();
-                    setSelectedIndex(prevIndex => 
-                        prevIndex >= suggestions.length - 1 ? 0 : prevIndex + 1
-                    );
+                    setSelectedIndex(prevIndex => {
+                        const newIndex = prevIndex >= suggestions.length - 1 ? 0 : prevIndex + 1;
+                        setInput(suggestions[newIndex]); // Update input to the highlighted suggestion
+                        return newIndex;
+                    });
                     break;
                 case 'Enter':
                     if (selectedIndex !== -1) {
@@ -102,7 +110,10 @@ function SearchBar() {
                 onClick={updateDropdownPosition}
                 placeholder="Type something here..."
                 className="search-bar"
+                style={{ position: "relative", zIndex: 2 }}
             />
+            
+            {/* Suggestions dropdown */}
             {suggestions.length > 0 && (
                 <SuggestionsDropdown
                     suggestions={suggestions}
