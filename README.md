@@ -24,13 +24,16 @@ In your terminal, press ```c``` + ```control``` keys.
 
 ## Next_Word_Prediction
 
+* dependencies:
+    * installing pytorch: https://pytorch.org/get-started/locally/
 ```
-pip install tensorflow pandas numpy nltk
+pip install transformers==4.30.2
+pip install sacremoses
 ```
-* nltk - Natural Language Toolkit
-* tokenizer = RegexpTokenizer(r'\w+')
-* data - data/fake_or_real_news.csv
-
+* trainer.py
+  ```
+  pip install transformers[torch] accelerate
+  ```
 
 ## Backend_Configuration
 
