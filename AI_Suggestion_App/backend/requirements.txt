@@ -1,6 +1,0 @@
-Flask
-transformers
-torch
-flask_cors
-
-
