@@ -11,7 +11,9 @@ Medical_Assistant is a system that uses AI-driven speech-to-text and text-genera
     ```
     cd Medical_Assistant/AI_Suggestion_App/frontend
     ```
-
+    ```
+    npm install
+    ```
     ```
     npm start
     ```
