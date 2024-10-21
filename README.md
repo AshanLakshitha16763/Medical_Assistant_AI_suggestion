@@ -37,36 +37,39 @@ In your terminal, press ```ctrl``` + ```c``` keys.
 
  * Refer the documentation to create and activate the virtual environment. (https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/)
 
- * Install Dependencies(Can change According to your requirement):
+ * After activating Virtual Environment,run below commonds in your terminal:
+  
+ * To install Dependencies(Can change According to your requirement):
 
     ```
-    pip install Flask transformers torch
+    pip install flask flask-cors transformers torch
+    ```
+ * To run the backend python file:
+
+    ```
+    run app.py
     ```
 
-> For ```Windows```, below I provided document to create Virtual Environment. 
 
+ * To stop the server:
 
-
-### After creating Virtual Environment,run below commond in your terminal:
-
-```
-run app.py
-```
-It will run on your browser. 
-
-### And also you want to stop the server:
-
-In your terminal, press ```ctrl``` + ```c``` keys.
+    In your terminal, press ```ctrl``` + ```c``` keys.
 
 ## Next_Word_Prediction
 
-* dependencies:
-    * installing pytorch: https://pytorch.org/get-started/locally/
-```
-pip install transformers==4.30.2
-pip install sacremoses
-```
+#### Predictor.py
+ * dependencies:
+   
+ * installing pytorch: https://pytorch.org/get-started/locally/
+   
+ * installing transformers and sacremoses
+   
+    ```
+    pip install transformers==4.30.2
+    pip install sacremoses
+    ```
 * trainer.py
+  
   ```
   pip install transformers[torch] accelerate
   ```
