@@ -17,7 +17,7 @@ common_phrases = [
     "how to train a dog",
     "how to bake a cake",
     "how do I install Streamlit",
-    "how do transformers models work"
+    "how do transformers models work in NLP",
 ]
 
 # Endpoint to provide suggestions based on user input
@@ -48,4 +48,5 @@ model_name = "gpt2"
 tokenizer = GPT2Tokenizer.from_pretrained(model_name)
 model = GPT2LMHeadModel.from_pretrained(model_name)
 text_gen_model = pipeline('text-generation', model=model, tokenizer=tokenizer, )
+
 """
