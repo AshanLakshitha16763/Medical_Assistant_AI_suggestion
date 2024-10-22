@@ -1,7 +1,7 @@
 
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-# from transformers import pipeline, GPT2LMHeadModel, GPT2Tokenizer
+from transformers import pipeline, GPT2LMHeadModel, GPT2Tokenizer
 import difflib
 
 app = Flask(__name__)
@@ -20,7 +20,31 @@ common_phrases = [
     "how do transformers models work in NLP",
 ]
 
-# Endpoint to provide suggestions based on user input
+
+model_name = "gpt2"
+tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+model = GPT2LMHeadModel.from_pretrained(model_name)
+text_gen_model = pipeline('text-generation', model=model, tokenizer=tokenizer, )
+
+
+def generate_ai_suggestions(input_text, num_suggestions=3):
+    generated = text_gen_model(input_text, max_length=10, num_return_sequences=num_suggestions)
+    return [g['generated_text'].strip() for g in generated]
+
+@app.route('/suggest', methods=['POST'])
+def suggest():
+    data = request.get_json()
+    user_input = data.get('input', '')
+
+    if user_input:
+        common_suggestions = difflib.get_close_matches(user_input, common_phrases, n=2, cutoff=0.1)
+        ai_suggestions = generate_ai_suggestions(user_input, num_suggestions=2)
+        return jsonify({'suggestions': common_suggestions + ai_suggestions})
+
+    return jsonify({'suggestions': []})
+
+
+"""# Endpoint to provide suggestions based on user input
 @app.route('/suggest', methods=['POST'])
 def suggest():
     data = request.get_json()
@@ -31,7 +55,7 @@ def suggest():
         suggestions = difflib.get_close_matches(user_input, common_phrases, n=3, cutoff=0.1)
         return jsonify({'suggestions': suggestions})
 
-    return jsonify({'suggestions': []})
+    return jsonify({'suggestions': []}) """
 
 # Endpoint to get the first prompt as the placeholder
 @app.route('/get-first-prompt', methods=['GET'])
@@ -43,10 +67,7 @@ def get_first_prompt():
 if __name__ == '__main__':
     app.run(debug=True)
 
-"""
-model_name = "gpt2"
-tokenizer = GPT2Tokenizer.from_pretrained(model_name)
-model = GPT2LMHeadModel.from_pretrained(model_name)
-text_gen_model = pipeline('text-generation', model=model, tokenizer=tokenizer, )
 
-"""
+
+
+# Modify the suggest function
