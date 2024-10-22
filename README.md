@@ -8,83 +8,72 @@ Medical_Assistant is a system that uses AI-driven speech-to-text and text-genera
 
 * Go to frontend folder:
 
-  ```
+    ```
     cd Medical_Assistant/AI_Suggestion_App/frontend
-
+    ```
+    ```
+    npm install
+    ```
     ```
     npm start
     ```
 
 It will run on your browser.
 
-### And also you want to stop the server:
+#### To stop the server:
 
-In your terminal, press ```c``` + ```control``` keys.
+In your terminal, press ```ctrl``` + ```c``` keys.
 
-
-## Next_Word_Prediction
-
-* dependencies:
-    * installing pytorch: https://pytorch.org/get-started/locally/
-```
-pip install transformers==4.30.2
-pip install sacremoses
-```
-* trainer.py
-  ```
-  pip install transformers[torch] accelerate
-  ```
 
 ## Backend_Configuration
-
-### Go to Backend file:
 
 * Give the right path to your terminal:
 
     ```
-    cd ./ copy_file_path
+    cd Medical_Assistant/AI_Suggestion_App/backend
     ```
 
-### Create and active Virtual Environment:
-
- * When you are developing the backend using ```Python``` (e.g., a Flask API), it's a good idea to use a virtual environment to manage Python dependencies separately from other projects.
+### Setting up the Virtual Environment:
 
  * Virtual environments keep all the required packages (like Flask, transformers, etc.) isolated, so they don't interfere with system Python packages or other projects.
 
- * following below steps to use a virtual environment:(```For macOs```)
+ * Refer the documentation to create and activate the virtual environment. (https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/)
 
-
-    1. Create the environment:
-
-    ```
-    python -m venv .venv
-    ```
-    2. Activate the environment:
+ * After activating Virtual Environment,run below commonds in your terminal:
+  
+ * To install Dependencies(Can change According to your requirement):
 
     ```
-    source venv/bin/activate
+    pip install flask flask-cors transformers torch
     ```
-    3. Install Dependencies(Can change According to your requirement):
+ * To run the backend python file:
 
     ```
-    pip install Flask transformers tourch
+    run app.py
     ```
 
-> For ```Windows```, below I provided document to create Virtual Environment. 
 
-If you want to get further more details refer; </br>https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/ .
+ * To stop the server:
 
-### After creating Virtual Environment,run below commond in your terminal:
+    In your terminal, press ```ctrl``` + ```c``` keys.
 
-```
-run app.py
-```
-It will run on your browser. 
+## Next_Word_Prediction
 
-### And also you want to stop the server:
-
-In your terminal, press ```c``` + ```control``` keys.
-
-
+#### Predictor.py
+ * dependencies:
+   
+ * installing pytorch: https://pytorch.org/get-started/locally/
+   
+ * installing transformers and sacremoses
+   
+    ```
+    pip install transformers==4.30.2
+    pip install sacremoses
+    ```
+* trainer.py
+  
+  ```
+  pip install transformers[torch] accelerate
+  ```
 
 
