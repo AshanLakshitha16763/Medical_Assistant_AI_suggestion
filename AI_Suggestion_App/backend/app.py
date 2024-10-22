@@ -1,34 +1,38 @@
 
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from transformers import pipeline, GPT2LMHeadModel, GPT2Tokenizer
+from transformers import pipeline, AutoTokenizer, AutoModelForCausalLM
 import difflib
 
 app = Flask(__name__)
 CORS(app)
 
 common_phrases = [
-    "how are you",
-    "how are you doing",
-    "how are things going",
-    "how are you feeling today",
-    "how are you doing today",
-    "how is the weather",
-    "how to train a dog",
-    "how to bake a cake",
-    "how do I install Streamlit",
-    "how do transformers models work"
+    "Patient reports severe chest pain and shortness of breath.",
+    "Patient reports severe chest pain and dizziness.",
+    "The patient was prescribed a low dose of ACE inhibitors.",
+    "The patient was prescribed a course of antibiotics.",
+    "The patient is experiencing fatigue and loss of appetite.",
+    "The patient is experiencing mild headaches.",
+    "Patient complains of abdominal pain and nausea.",
+    "Patient complains of back pain and stiffness.",
+    "The patient is experiencing shortness of breath and chest pain.",
+    "The patient is experiencing severe chest pain and dizziness.",
+    "The patient is experiencing severe chest pain and shortness of breath.",
+    "The patient is experiencing severe chest pain and fatigue.",
+    "patient reports severe chest pain and shortness of breath.",
+    "patient reports severe chest pain and dizziness."
 ]
 
 
-model_name = "gpt2"
-tokenizer = GPT2Tokenizer.from_pretrained(model_name)
-model = GPT2LMHeadModel.from_pretrained(model_name)
+model_name = "microsoft/BioGPT"
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForCausalLM.from_pretrained(model_name)
 text_gen_model = pipeline('text-generation', model=model, tokenizer=tokenizer, )
 
 
 def generate_ai_suggestions(input_text, num_suggestions=3):
-    generated = text_gen_model(input_text, max_length=10, num_return_sequences=num_suggestions)
+    generated = text_gen_model(input_text, max_length=10, num_return_sequences=num_suggestions, num_beams=2)
     return [g['generated_text'].strip() for g in generated]
 
 @app.route('/suggest', methods=['POST'])
