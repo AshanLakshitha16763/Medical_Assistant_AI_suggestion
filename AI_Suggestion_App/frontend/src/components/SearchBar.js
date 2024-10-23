@@ -94,15 +94,27 @@ const handleKeyDown = (e) => {
                 }
                 updateDropdownPosition();
             }, 0);
-        } else if (suggestions.length > 0) {
+        } 
+        
+        else if (suggestions.length > 0) {
             switch (e.key) {
                 case 'ArrowUp':
                     e.preventDefault();
-                    setSelectedIndex(prevIndex => (prevIndex <= 0 ? suggestions.length - 1 : prevIndex - 1));
+                    setSelectedIndex(prevIndex => {
+                        const newIndex = prevIndex <= 0 ? suggestions.length - 1 : prevIndex - 1;
+                        setInput(suggestions[newIndex]);
+                        return newIndex;
+                    });
+
                     break;
                 case 'ArrowDown':
                     e.preventDefault();
-                    setSelectedIndex(prevIndex => (prevIndex >= suggestions.length - 1 ? 0 : prevIndex + 1));
+                    setSelectedIndex(prevIndex => {
+                        const newIndex = prevIndex >= suggestions.length - 1 ? 0 : prevIndex + 1;
+                        setInput(suggestions[newIndex]);   
+                        return newIndex;
+                    });
+
                     break;
                 case 'Enter':
                     if (selectedIndex !== -1) {
