@@ -4,14 +4,20 @@ import SuggestionsDropdown from './SuggestionsDropdown';
 import './SearchBar.css';
 
 function SearchBar() {
+
+// state Management - keeping track of the input value, suggestions, dropdown position, selected index, and cursor position 
+
     const [input, setInput] = useState("");
     const [suggestions, setSuggestions] = useState([]);
     const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
     const [selectedIndex, setSelectedIndex] = useState(-1);
     const [cursorPosition, setCursorPosition] = useState(0);
+
+// References - Directly access to DOM elements
     const inputRef = useRef(null);
     const containerRef = useRef(null);
 
+// Effect hooks - Automatically update the dropdown position when the window is resized
     useEffect(() => {
         window.addEventListener('resize', updateDropdownPosition);
         return () => {
@@ -23,6 +29,8 @@ function SearchBar() {
         adjustTextareaHeight();
     }, [input]);
 
+
+// Handling user input - Update the input value, fetch suggestions, and update the dropdown position
     const handleChange = async (e) => {
         const value = e.target.value;
         setInput(value);
@@ -42,7 +50,10 @@ function SearchBar() {
         }
     };
 
-    const handleSuggestionClick = (suggestion) => {
+
+// Handling suggestion selection - Insert the selected suggestion into the input value
+
+/*    const handleSuggestionClick = (suggestion) => {
         const beforeCursor = input.slice(0, cursorPosition);
         const afterCursor = input.slice(cursorPosition);
         const newInput = beforeCursor + suggestion + afterCursor;
@@ -51,8 +62,26 @@ function SearchBar() {
         setSuggestions([]);
         setSelectedIndex(-1);
     };
+*/
+const handleSuggestionClick = (suggestion) => {
+    setInput(suggestion); // Replace entire input with suggestion
+    setCursorPosition(suggestion.length); // Move cursor to end
+    setSuggestions([]); // Clear suggestions
+    setSelectedIndex(-1);
+    
+    // Focus the input and set cursor position at the end
+    if (inputRef.current) {
+        inputRef.current.focus();
+        setTimeout(() => {
+            inputRef.current.selectionStart = suggestion.length;
+            inputRef.current.selectionEnd = suggestion.length;
+        }, 0);
+    }
+};
 
-    const handleKeyDown = (e) => {
+// Keyboard Controls - Handle Enter key, arrow keys, and suggestion selection
+
+const handleKeyDown = (e) => {
         if (e.key === 'Enter' && e.shiftKey) {
             e.preventDefault();
             const newValue = input.slice(0, cursorPosition) + '\n' + input.slice(cursorPosition);
@@ -87,9 +116,15 @@ function SearchBar() {
         }
     };
 
+   
+
+// Smart positioning - Calculate the position of the dropdown based on the cursor position
     const updateDropdownPosition = () => {
+        
+        // Gets information about where the text area is on the screen
         if (inputRef.current && containerRef.current) {
             const inputRect = inputRef.current.getBoundingClientRect();
+        // Calculates where to put the suggestions box
             const lineHeight = parseInt(getComputedStyle(inputRef.current).lineHeight);
             const { selectionStart, value, scrollTop } = inputRef.current;
             
@@ -127,6 +162,7 @@ function SearchBar() {
         }
     };
 
+// the visual part(render) - Render the textarea and suggestions dropdown
     return (
         <div className="search-bar-container" ref={containerRef}>
             <textarea
@@ -142,6 +178,7 @@ function SearchBar() {
                 placeholder="Type something here..."
                 className="search-bar"
                 rows={1}
+                style={{ZIndex: 2}}
             />
             
             {suggestions.length > 0 && (
@@ -150,6 +187,7 @@ function SearchBar() {
                     onClick={handleSuggestionClick}
                     position={dropdownPosition}
                     selectedIndex={selectedIndex}
+                    
                 />
             )}
         </div>
