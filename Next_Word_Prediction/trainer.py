@@ -6,7 +6,7 @@ tokenizer = BioGptTokenizer.from_pretrained('microsoft/BioGPT')
 model = BioGptForCausalLM.from_pretrained('microsoft/BioGPT')
 
 # Load dataset
-dataset = load_dataset('csv', data_files='Next_Word_Prediction/data/medical_completion_dataset.csv')
+dataset = load_dataset('csv', data_files='Next_Word_Prediction/data/drugs_side_effects_dataset.csv')
 
 
 
@@ -22,7 +22,7 @@ def tokenize_function(examples):
 """
 def tokenize_function(examples):
     # Split the symptoms by comma and join them with a space
-    symptoms = [symptom.strip() for symptom in examples['symptoms'].split(',')]
+    symptoms = [symptom.strip() for symptom in examples['side_effects'].split(',')]
     text = ' '.join(symptoms)
    
     # Tokenize the text
