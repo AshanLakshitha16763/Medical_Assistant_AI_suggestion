@@ -5,7 +5,7 @@ from datasets import load_dataset
 tokenizer = BioGptTokenizer.from_pretrained('microsoft/BioGPT')
 model = BioGptForCausalLM.from_pretrained('microsoft/BioGPT')
 
-# Load your dataset
+# Load dataset
 dataset = load_dataset('csv', data_files='Next_Word_Prediction/data/medical_completion_dataset.csv')
 
 
@@ -13,9 +13,20 @@ dataset = load_dataset('csv', data_files='Next_Word_Prediction/data/medical_comp
 # Split the dataset into (80% train, 20% validation)
 dataset = dataset['train'].train_test_split(test_size=0.2)
 
+"""
 # Tokenize the dataset for causal language modeling
 def tokenize_function(examples):
     inputs = tokenizer(examples['Input'], padding="max_length", truncation=True, max_length=128)
+    inputs['labels'] = inputs['input_ids'].copy()  # Set input_ids as labels for causal LM task
+    return inputs
+"""
+def tokenize_function(examples):
+    # Split the symptoms by comma and join them with a space
+    symptoms = [symptom.strip() for symptom in examples['symptoms'].split(',')]
+    text = ' '.join(symptoms)
+   
+    # Tokenize the text
+    inputs = tokenizer(text, padding="max_length", truncation=True, max_length=128)
     inputs['labels'] = inputs['input_ids'].copy()  # Set input_ids as labels for causal LM task
     return inputs
 
