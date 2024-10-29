@@ -6,29 +6,45 @@ tokenizer = BioGptTokenizer.from_pretrained('microsoft/BioGPT')
 model = BioGptForCausalLM.from_pretrained('microsoft/BioGPT')
 
 # Load dataset
-dataset = load_dataset('csv', data_files='Next_Word_Prediction/data/drugs_side_effects_dataset.csv')
+dataset = load_dataset('csv', data_files='data/drugs_side_effects_dataset.csv')
 
 
 
-# Split the dataset into (80% train, 20% validation)
+# Split the dataset into (90% train, 10% validation)
 dataset = dataset['train'].train_test_split(test_size=0.2)
 
-"""
-# Tokenize the dataset for causal language modeling
-def tokenize_function(examples):
-    inputs = tokenizer(examples['Input'], padding="max_length", truncation=True, max_length=128)
-    inputs['labels'] = inputs['input_ids'].copy()  # Set input_ids as labels for causal LM task
-    return inputs
-"""
-def tokenize_function(examples):
-    # Split the symptoms by comma and join them with a space
-    symptoms = [symptom.strip() for symptom in examples['side_effects'].split(',')]
-    text = ' '.join(symptoms)
+
+"""def tokenize_function(examples):
+    
+    # New Preprocessing part # Process each item in the side_effects list
+    texts = []
+    for side_effect in examples['side_effects']:
+        # Split each entry by comma, strip whitespace, and join with spaces
+        effects = [effect.strip() for effect in side_effect.split(',')]
+        texts.append(' '.join(effects))
+    
+    
    
     # Tokenize the text
-    inputs = tokenizer(text, padding="max_length", truncation=True, max_length=128)
+    inputs = tokenizer(texts, padding="max_length", truncation=True, max_length=128)
+    inputs['labels'] = inputs['input_ids'].copy()  # Set input_ids as labels for causal LM task
+    return inputs"""
+
+def tokenize_function(examples):
+    texts = []
+    for side_effect in examples['side_effects']:
+        if side_effect is None:
+            texts.append('')  # Add an empty string if side_effect is None
+        else:
+            # Split by comma, strip whitespace, and join with spaces
+            effects = [effect.strip() for effect in side_effect.split(',')]
+            texts.append(' '.join(effects))
+
+    # Tokenize the batch of texts
+    inputs = tokenizer(texts, padding="max_length", truncation=True, max_length=128)
     inputs['labels'] = inputs['input_ids'].copy()  # Set input_ids as labels for causal LM task
     return inputs
+
 
 tokenized_datasets = dataset.map(tokenize_function, batched=True)
 
