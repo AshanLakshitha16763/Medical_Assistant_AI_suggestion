@@ -37,10 +37,25 @@ function SearchBar() {
         setCursorPosition(e.target.selectionStart);
         setSelectedIndex(-1);
         updateDropdownPosition();
-
-        if (value.length > 0) {
+//------------------NEW CODE------------------
+        // Get the current line based on cursor position
+        const lines = value.split('\n');
+        let currentLineIndex = 0;
+        let charCount = 0;
+        
+        for (let i = 0; i < lines.length; i++) {
+            charCount += lines[i].length + 1; // +1 for the newline character
+            if (charCount > e.target.selectionStart) {
+                currentLineIndex = i;
+                break;
+            }
+        }
+        
+        const currentLine = lines[currentLineIndex];
+//------------------------------------
+        if (currentLine && currentLine.length > 0) {
             try {
-                const response = await axios.post('http://127.0.0.1:5000/suggest', { input: value });
+                const response = await axios.post('http://127.0.0.1:5000/suggest', { input: currentLine });
                 setSuggestions(response.data.suggestions);
             } catch (error) {
                 console.error("Error fetching suggestions:", error);
@@ -52,29 +67,35 @@ function SearchBar() {
 
 
 // Handling suggestion selection - Insert the selected suggestion into the input value
-
-/*    const handleSuggestionClick = (suggestion) => {
-        const beforeCursor = input.slice(0, cursorPosition);
-        const afterCursor = input.slice(cursorPosition);
-        const newInput = beforeCursor + suggestion + afterCursor;
-        setInput(newInput);
-        setCursorPosition(cursorPosition + suggestion.length);
-        setSuggestions([]);
-        setSelectedIndex(-1);
-    };
-*/
 const handleSuggestionClick = (suggestion) => {
-    setInput(suggestion); // Replace entire input with suggestion
-    setCursorPosition(suggestion.length); // Move cursor to end
+    const lines = input.split('\n');
+    let currentLineIndex = 0;
+    let charCount = 0;
+
+    for (let i = 0; i < lines.length; i++) {
+        charCount += lines[i].length + 1; // +1 for the newline character
+        if (charCount > cursorPosition) {
+            currentLineIndex = i;
+            break;
+        }
+    }
+
+    // Replace only the current line with the suggestion
+    lines[currentLineIndex] = suggestion;
+    const newInput = lines.join('\n');
+
+    setInput(newInput); // Replace entire input with suggestion
+    //setCursorPosition(suggestion.length); // Move cursor to end
     setSuggestions([]); // Clear suggestions
     setSelectedIndex(-1);
     
     // Focus the input and set cursor position at the end
     if (inputRef.current) {
         inputRef.current.focus();
+        const newPosition = charCount - (lines[currentLineIndex].length - suggestion.length);
         setTimeout(() => {
-            inputRef.current.selectionStart = suggestion.length;
-            inputRef.current.selectionEnd = suggestion.length;
+            inputRef.current.selectionStart = newPosition;
+            inputRef.current.selectionEnd = newPosition;
         }, 0);
     }
 };
@@ -82,11 +103,14 @@ const handleSuggestionClick = (suggestion) => {
 // Keyboard Controls - Handle Enter key, arrow keys, and suggestion selection
 
 const handleKeyDown = (e) => {
+
+
         if (e.key === 'Enter' && e.shiftKey) {
             e.preventDefault();
             const newValue = input.slice(0, cursorPosition) + '\n' + input.slice(cursorPosition);
             setInput(newValue);
             setCursorPosition(cursorPosition + 1);
+            setSuggestions([]); // Added this line to rest the suggestions
             setTimeout(() => {
                 if (inputRef.current) {
                     inputRef.current.selectionStart = cursorPosition + 1;
@@ -102,6 +126,19 @@ const handleKeyDown = (e) => {
                     e.preventDefault();
                     setSelectedIndex(prevIndex => {
                         const newIndex = prevIndex <= 0 ? suggestions.length - 1 : prevIndex - 1;
+// Update only current line with suggestion.
+                        const lines = input.split('\n');
+                        let currentLineIndex = 0;
+                        let charCount = 0;
+                        for (let i = 0; i < lines.length; i++) {
+                            charCount += lines[i].length + 1; // +1 for the newline character
+                            if (charCount > cursorPosition) {
+                                currentLineIndex = i;
+                                break;
+                            }
+                        }
+                        lines[currentLineIndex] = suggestions[newIndex];
+                        setInput(lines.join('\n'));
                         setInput(suggestions[newIndex]);
                         return newIndex;
                     });
@@ -111,6 +148,19 @@ const handleKeyDown = (e) => {
                     e.preventDefault();
                     setSelectedIndex(prevIndex => {
                         const newIndex = prevIndex >= suggestions.length - 1 ? 0 : prevIndex + 1;
+// Update only current line with suggestion.
+                        const lines = input.split('\n');
+                        let currentLineIndex = 0;
+                        let charCount = 0;
+                        for (let i = 0; i < lines.length; i++) {
+                            charCount += lines[i].length + 1; // +1 for the newline character
+                            if (charCount > cursorPosition) {
+                                currentLineIndex = i;
+                                break;
+                            }
+                        }
+                        lines[currentLineIndex] = suggestions[newIndex];
+                        setInput(lines.join('\n'));
                         setInput(suggestions[newIndex]);   
                         return newIndex;
                     });
