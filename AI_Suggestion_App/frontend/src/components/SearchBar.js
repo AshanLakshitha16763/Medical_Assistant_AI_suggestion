@@ -84,18 +84,24 @@ const handleSuggestionClick = (suggestion) => {
     lines[currentLineIndex] = suggestion;
     const newInput = lines.join('\n');
 
+    // Calculate the position where cursor should be after the suggestion
+    let newCursorPosition = 0;
+    for (let i = 0; i < currentLineIndex; i++) {
+        newCursorPosition += lines[i].length + 1;
+    }
+    newCursorPosition += suggestion.length;
+
     setInput(newInput); // Replace entire input with suggestion
-    //setCursorPosition(suggestion.length); // Move cursor to end
     setSuggestions([]); // Clear suggestions
     setSelectedIndex(-1);
     
     // Focus the input and set cursor position at the end
     if (inputRef.current) {
         inputRef.current.focus();
-        const newPosition = charCount - (lines[currentLineIndex].length - suggestion.length);
+        //const newPosition = charCount - (lines[currentLineIndex].length - suggestion.length);
         setTimeout(() => {
-            inputRef.current.selectionStart = newPosition;
-            inputRef.current.selectionEnd = newPosition;
+            inputRef.current.selectionStart = newCursorPosition;
+            inputRef.current.selectionEnd = newCursorPosition;
         }, 0);
     }
 };
@@ -139,7 +145,6 @@ const handleKeyDown = (e) => {
                         }
                         lines[currentLineIndex] = suggestions[newIndex];
                         setInput(lines.join('\n'));
-                        setInput(suggestions[newIndex]);
                         return newIndex;
                     });
 
@@ -160,8 +165,7 @@ const handleKeyDown = (e) => {
                             }
                         }
                         lines[currentLineIndex] = suggestions[newIndex];
-                        setInput(lines.join('\n'));
-                        setInput(suggestions[newIndex]);   
+                        setInput(lines.join('\n'));                   
                         return newIndex;
                     });
 
