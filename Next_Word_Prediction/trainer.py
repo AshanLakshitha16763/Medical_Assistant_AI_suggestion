@@ -11,7 +11,7 @@ dataset = load_dataset('csv', data_files='data/drugs_side_effects_dataset.csv')
 
 
 # Split the dataset into (90% train, 10% validation)
-dataset = dataset['train'].train_test_split(test_size=0.2)
+dataset = dataset['train'].train_test_split(test_size=0.1)
 
 
 """def tokenize_function(examples):
