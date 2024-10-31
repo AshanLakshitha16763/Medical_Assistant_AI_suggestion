@@ -7,6 +7,7 @@ import difflib
 app = Flask(__name__)
 CORS(app)
 
+
 common_phrases = [
     "Patient reports severe chest pain and shortness of breath.",
     "Patient reports severe chest pain and dizziness.",
@@ -28,11 +29,11 @@ common_phrases = [
 model_name = "microsoft/BioGPT"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForCausalLM.from_pretrained(model_name)
-text_gen_model = pipeline('text-generation', model=model, tokenizer=tokenizer, )
+text_gen_model = pipeline('text-generation', model=model, tokenizer=tokenizer, device=0) # device=0 to use GPU
 
 
 def generate_ai_suggestions(input_text, num_suggestions=3):
-    generated = text_gen_model(input_text, max_length=10, num_return_sequences=num_suggestions, num_beams=2)
+    generated = text_gen_model(input_text, max_length=20, num_return_sequences=num_suggestions, num_beams=2)
     return [g['generated_text'].strip() for g in generated]
 
 @app.route('/suggest', methods=['POST'])
@@ -43,7 +44,7 @@ def suggest():
     if user_input:
         common_suggestions = difflib.get_close_matches(user_input, common_phrases, n=2, cutoff=0.1)
         ai_suggestions = generate_ai_suggestions(user_input, num_suggestions=2)
-        return jsonify({'suggestions': common_suggestions + ai_suggestions})
+        return jsonify({'suggestions': common_suggestions + ai_suggestions}) 
 
     return jsonify({'suggestions': []})
 
