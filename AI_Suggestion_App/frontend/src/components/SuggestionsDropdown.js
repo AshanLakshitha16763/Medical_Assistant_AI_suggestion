@@ -4,8 +4,7 @@ import './SuggestionsDropdown.css';
 
 function SuggestionsDropdown({ suggestions, onClick, position, selectedIndex }) {
     return (
-        <div 
-            className="suggestions-dropdown"
+        <div className="suggestions-dropdown"
             style={{
                 top: `${position.top}px`,
                 left: `${position.left}px`,
