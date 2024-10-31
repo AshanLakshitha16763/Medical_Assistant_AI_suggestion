@@ -4,6 +4,7 @@ import axios from 'axios';
 import SuggestionsDropdown from './SuggestionsDropdown';
 import './SearchBar.css';
 
+
 function SearchBar() {
     const [input, setInput] = useState("");
     const [suggestions, setSuggestions] = useState([]);
@@ -11,6 +12,9 @@ function SearchBar() {
     const [selectedIndex, setSelectedIndex] = useState(-1);
     const inputRef = useRef(null);
     const containerRef = useRef(null);
+
+    const [suggestion, setSuggestion] = useState("");
+    
 
     useEffect(() => {
         window.addEventListener('resize', updateDropdownPosition);
@@ -20,24 +24,52 @@ function SearchBar() {
     }, [input]);
 
     // Handle input changes and fetch suggestions
+    // const handleChange = async (e) => {
+    //     const value = e.target.value;
+    //     setInput(value);
+    //     setSelectedIndex(-1); // Reset selected index on input change
+    //     updateDropdownPosition();
+
+    //     if (value.length > 0) {
+    //         try {
+    //             // Fetch suggestions from the backend based on user input
+    //             const response = await axios.post('http://127.0.0.1:5000/suggest', { input: value });
+    //             setSuggestions(response.data.suggestions);
+    //         } catch (error) {
+    //             console.error("Error fetching suggestions:", error);
+    //         }
+    //     } else {
+    //         setSuggestions([]);
+    //     }
+    // };
+
     const handleChange = async (e) => {
         const value = e.target.value;
         setInput(value);
         setSelectedIndex(-1); // Reset selected index on input change
         updateDropdownPosition();
-
+    
         if (value.length > 0) {
-            try {
-                // Fetch suggestions from the backend based on user input
-                const response = await axios.post('http://127.0.0.1:5000/suggest', { input: value });
-                setSuggestions(response.data.suggestions);
-            } catch (error) {
-                console.error("Error fetching suggestions:", error);
+          try {
+            // Fetch suggestions from the backend based on user input
+            const response = await axios.post('http://127.0.0.1:5000/suggest', { input: value });
+            setSuggestions(response.data.suggestions);
+            
+            // Set the first suggestion if available
+            if (response.data.suggestions.length > 0) {
+              setSuggestion(value + response.data.suggestions[0].slice(value.length));
+            } else {
+              setSuggestion(value);
             }
+          } catch (error) {
+            console.error("Error fetching suggestions:", error);
+          }
         } else {
-            setSuggestions([]);
+          setSuggestions([]);
+          setSuggestion(value); // Clear suggestion if input is empty
         }
-    };
+      };
+    
 
     // Handle suggestion click
     const handleSuggestionClick = (suggestion) => {
@@ -75,6 +107,9 @@ function SearchBar() {
                     break;
             }
         }
+        if (e.keyCode === 39) { // Right arrow key
+            setInput(suggestion);
+          }
     };
 
     const updateDropdownPosition = () => {
@@ -110,9 +145,22 @@ function SearchBar() {
                 onClick={updateDropdownPosition}
                 placeholder="Type something here..."
                 className="search-bar"
+                id='search-bar'
                 style={{ position: "relative", zIndex: 2 }}
             />
+
+
+            <input
+                type="text"
+                name="search-bar"
+                id="search-bar-2"
+                value={suggestion}
+                readOnly
+                style={{ height:"25px",width: "100%", zIndex: 2 }}
+            />
             
+    
+
             {/* Suggestions dropdown */}
             {suggestions.length > 0 && (
                 <SuggestionsDropdown
