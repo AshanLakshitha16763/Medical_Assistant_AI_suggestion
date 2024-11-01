@@ -362,6 +362,8 @@ const handleKeyDown = (e) => {
     //     </div>
     // );
 
+
+    //placeholder working for the first line
     return (
         <div className="search-bar-container" ref={containerRef} style={{ position: "relative",  display: "inline-flex", alignItems: "center" }}>
             {/* Main input (textarea) */}
