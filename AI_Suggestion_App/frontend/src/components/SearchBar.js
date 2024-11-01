@@ -363,7 +363,7 @@ const handleKeyDown = (e) => {
     // );
 
     return (
-        <div className="search-bar-container" ref={containerRef} style={{ position: "relative", width: "fit-content", display: "inline-flex", alignItems: "center" }}>
+        <div className="search-bar-container" ref={containerRef} style={{ position: "relative",  display: "inline-flex", alignItems: "center" }}>
             {/* Main input (textarea) */}
             <textarea
                 ref={inputRef}
@@ -378,8 +378,8 @@ const handleKeyDown = (e) => {
                 style={{
                     position: "relative",
                     zIndex: 2,
-                    width: "300px",
-                    height: "40px",
+                    // width: "300px",
+                    height: "400px",
                     resize: "none",
                     fontSize: "16px",
                     padding: "10px 15px",
@@ -412,8 +412,9 @@ const handleKeyDown = (e) => {
                     borderRadius: "20px",
                     border: "1px solid transparent", // No border to avoid overlap
                     pointerEvents: "none", // Non-interactive
-                    zIndex: 1,
+                    zIndex: 2,
                     boxSizing: "border-box",
+                    marginTop: "3px"
                 }}
             />
     
