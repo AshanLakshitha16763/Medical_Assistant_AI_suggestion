@@ -29,7 +29,7 @@ common_phrases = [
 model_name = "microsoft/BioGPT"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForCausalLM.from_pretrained(model_name)
-text_gen_model = pipeline('text-generation', model=model, tokenizer=tokenizer, device=0) # device=0 to use GPU
+text_gen_model = pipeline('text-generation', model=model, tokenizer=tokenizer) # device=0 to use GPU
 
 
 def generate_ai_suggestions(input_text, num_suggestions=3):

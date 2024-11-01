@@ -55,56 +55,100 @@ function SearchBar() {
 
 
 // Handling user input - Update the input value, fetch suggestions, and update the dropdown position
-    const handleChange = async (e) => {
-        const value = e.target.value;
-        setInput(value);
-        setCursorPosition(e.target.selectionStart);
-        setSelectedIndex(-1);
-        updateDropdownPosition();
+//     const handleChange = async (e) => {
+//         const value = e.target.value;
+//         setInput(value);
+//         setCursorPosition(e.target.selectionStart);
+//         setSelectedIndex(-1);
+//         updateDropdownPosition();
     
 
         
-        // if (value.length > 0) {
-        //   try {
-        //     // Fetch suggestions from the backend based on user input
-        //     const response = await axios.post('http://127.0.0.1:5000/suggest', { input: value });
-        //     setSuggestions(response.data.suggestions);
+//         // if (value.length > 0) {
+//         //   try {
+//         //     // Fetch suggestions from the backend based on user input
+//         //     const response = await axios.post('http://127.0.0.1:5000/suggest', { input: value });
+//         //     setSuggestions(response.data.suggestions);
             
-        //     // Set the first suggestion if available
-        //     if (response.data.suggestions.length > 0) {
-        //       setSuggestion(value + response.data.suggestions[0].slice(value.length));
-        //     } else {
-        //       setSuggestion(value);
-//------------------NEW CODE------------------
-        // Get the current line based on cursor position
-        const lines = value.split('\n');
-        let currentLineIndex = 0;
-        let charCount = 0;
+//         //     // Set the first suggestion if available
+//         //     if (response.data.suggestions.length > 0) {
+//         //       setSuggestion(value + response.data.suggestions[0].slice(value.length));
+//         //     } else {
+//         //       setSuggestion(value);
+// //------------------NEW CODE------------------
+//         // Get the current line based on cursor position
+//         const lines = value.split('\n');
+//         let currentLineIndex = 0;
+//         let charCount = 0;
         
-        for (let i = 0; i < lines.length; i++) {
-            charCount += lines[i].length + 1; // +1 for the newline character
-            if (charCount > e.target.selectionStart) {
-                currentLineIndex = i;
-                break;
-            }
-        }
+//         for (let i = 0; i < lines.length; i++) {
+//             charCount += lines[i].length + 1; // +1 for the newline character
+//             if (charCount > e.target.selectionStart) {
+//                 currentLineIndex = i;
+//                 break;
+//             }
+//         }
         
-        const currentLine = lines[currentLineIndex];
-//------------------------------------
-        if (currentLine && currentLine.length > 0) {
-            try {
-                const response = await axios.post('http://127.0.0.1:5000/suggest', { input: currentLine });
-                setSuggestions(response.data.suggestions);
-            } catch (error) {
-                console.error("Error fetching suggestions:", error);
-            }
-        }else {
-          setSuggestions([]);
-          setSuggestion(value); // Clear suggestion if input is empty
-        }
-    };
+//         const currentLine = lines[currentLineIndex];
+// //------------------------------------
+//         if (currentLine && currentLine.length > 0) {
+//             try {
+//                 const response = await axios.post('http://127.0.0.1:5000/suggest', { input: currentLine });
+//                 setSuggestions(response.data.suggestions);
+//             } catch (error) {
+//                 console.error("Error fetching suggestions:", error);
+//             }
+//         }else {
+//           setSuggestions([]);
+//           setSuggestion(value); // Clear suggestion if input is empty
+//         }
+//     };
       
-    
+const handleChange = async (e) => {
+    const value = e.target.value;
+    setInput(value);
+    setCursorPosition(e.target.selectionStart);
+    setSelectedIndex(-1);
+    updateDropdownPosition();
+
+    // Split input into lines and find the current line based on cursor position
+    const lines = value.split('\n');
+    let currentLineIndex = 0;
+    let charCount = 0;
+
+    for (let i = 0; i < lines.length; i++) {
+        charCount += lines[i].length + 1; // +1 for the newline character
+        if (charCount > e.target.selectionStart) {
+            currentLineIndex = i;
+            break;
+        }
+    }
+
+    const currentLine = lines[currentLineIndex];
+
+    // Check if current line or value has content before fetching suggestions
+    if (currentLine && currentLine.length > 0) {
+        try {
+            // Fetch suggestions based on the current line
+            const response = await axios.post('http://127.0.0.1:5000/suggest', { input: currentLine });
+            setSuggestions(response.data.suggestions);
+
+            // Set the suggestion for autocomplete
+            if (response.data.suggestions.length > 0) {
+                setSuggestion(value + response.data.suggestions[0].slice(currentLine.length));
+            } else {
+                setSuggestion(value);
+            }
+        } catch (error) {
+            console.error("Error fetching suggestions:", error);
+            setSuggestions([]); // Clear suggestions on error
+        }
+    } else {
+        setSuggestions([]);
+        setSuggestion(value); // Clear suggestion if input is empty
+    }
+};
+
 
 
 // Handling suggestion selection - Insert the selected suggestion into the input value
