@@ -74,6 +74,7 @@ trainer.train()
 model.save_pretrained('./fine_tuned_BioGPT')
 tokenizer.save_pretrained('./fine_tuned_BioGPT')
 
+#First test run results:
 """Generating train split: 14 examples [00:01, 12.37 examples/s]
 Map: 100%|████████████████████████████████████████████████████████████████████████████████████████████████| 11/11 [00:00<00:00, 34.31 examples/s]
 Map: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████| 3/3 [00:00<00:00, 203.78 examples/s]
