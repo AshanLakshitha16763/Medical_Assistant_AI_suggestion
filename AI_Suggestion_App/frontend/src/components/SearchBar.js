@@ -317,38 +317,106 @@ const handleKeyDown = (e) => {
     };
 
 // the visual part(render) - Render the textarea and suggestions dropdown
+    // return (
+    //     <div className="search-bar-container" ref={containerRef}>
+    //         <textarea
+    //             ref={inputRef}
+    //             value={input}
+    //             onChange={handleChange}
+    //             onKeyDown={handleKeyDown}
+    //             onSelect={(e) => {
+    //                 setCursorPosition(e.target.selectionStart);
+    //                 updateDropdownPosition();
+    //             }}
+    //             onScroll={updateDropdownPosition}
+    //             placeholder="Type something here..."
+    //             className="search-bar"
+    //             id='search-bar'
+    //             style={{ position: "relative", zIndex: 2 }}
+    //             rows={1}
+    //             // style={{ZIndex: 2}}
+    //         />
+
+
+    //         <input
+    //             type="text"
+    //             className="search-bar"
+    //             id="search-bar-2"
+    //             value={suggestion}
+    //             readOnly
+    //             style={{ height:"25px",width: "100%", zIndex: 2 }}
+    //         />
+            
+    
+
+    //         {/* Suggestions dropdown */}
+    //         {suggestions.length > 0 && (
+    //             <SuggestionsDropdown
+    //                 suggestions={suggestions}
+    //                 onClick={handleSuggestionClick}
+    //                 position={dropdownPosition}
+    //                 selectedIndex={selectedIndex}
+                    
+    //             />
+    //         )}
+    //     </div>
+    // );
+
     return (
-        <div className="search-bar-container" ref={containerRef}>
+        <div className="search-bar-container" ref={containerRef} style={{ position: "relative", width: "fit-content", display: "inline-flex", alignItems: "center" }}>
+            {/* Main input (textarea) */}
             <textarea
                 ref={inputRef}
                 value={input}
                 onChange={handleChange}
                 onKeyDown={handleKeyDown}
-                onSelect={(e) => {
-                    setCursorPosition(e.target.selectionStart);
-                    updateDropdownPosition();
-                }}
+                onSelect={updateDropdownPosition}
                 onScroll={updateDropdownPosition}
                 placeholder="Type something here..."
                 className="search-bar"
-                id='search-bar'
-                style={{ position: "relative", zIndex: 2 }}
+                id="search-bar"
+                style={{
+                    position: "relative",
+                    zIndex: 2,
+                    width: "300px",
+                    height: "40px",
+                    resize: "none",
+                    fontSize: "16px",
+                    padding: "10px 15px",
+                    color: "#000",
+                    background: "transparent",
+                    borderRadius: "20px",
+                    border: "1px solid #ccc",
+                    boxSizing: "border-box",
+                }}
                 rows={1}
-                // style={{ZIndex: 2}}
             />
-
-
+    
+            {/* Overlay input for suggestion acting as ghost text */}
             <input
                 type="text"
-                name="search-bar"
+                className="search-bar-overlay"
                 id="search-bar-2"
                 value={suggestion}
                 readOnly
-                style={{ height:"25px",width: "100%", zIndex: 2 }}
+                style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "300px",
+                    height: "40px",
+                    fontSize: "16px",
+                    padding: "10px 15px",
+                    color: "rgba(0, 0, 0, 0.3)", // Ghost text color
+                    background: "transparent",
+                    borderRadius: "20px",
+                    border: "1px solid transparent", // No border to avoid overlap
+                    pointerEvents: "none", // Non-interactive
+                    zIndex: 1,
+                    boxSizing: "border-box",
+                }}
             />
-            
     
-
             {/* Suggestions dropdown */}
             {suggestions.length > 0 && (
                 <SuggestionsDropdown
@@ -356,11 +424,11 @@ const handleKeyDown = (e) => {
                     onClick={handleSuggestionClick}
                     position={dropdownPosition}
                     selectedIndex={selectedIndex}
-                    
                 />
             )}
         </div>
     );
+    
 }
 
 export default SearchBar;
