@@ -29,80 +29,12 @@ function SearchBar() {
         };
     }, [input]);
 
-    // Handle input changes and fetch suggestions
-    // const handleChange = async (e) => {
-    //     const value = e.target.value;
-    //     setInput(value);
-    //     setSelectedIndex(-1); // Reset selected index on input change
-    //     updateDropdownPosition();
-
-    //     if (value.length > 0) {
-    //         try {
-    //             // Fetch suggestions from the backend based on user input
-    //             const response = await axios.post('http://127.0.0.1:5000/suggest', { input: value });
-    //             setSuggestions(response.data.suggestions);
-    //         } catch (error) {
-    //             console.error("Error fetching suggestions:", error);
-    //         }
-    //     } else {
-    //         setSuggestions([]);
-    //     }
-    // };
 
     useEffect(() => {
         adjustTextareaHeight();
     }, [input]);
 
 
-// Handling user input - Update the input value, fetch suggestions, and update the dropdown position
-//     const handleChange = async (e) => {
-//         const value = e.target.value;
-//         setInput(value);
-//         setCursorPosition(e.target.selectionStart);
-//         setSelectedIndex(-1);
-//         updateDropdownPosition();
-    
-
-        
-//         // if (value.length > 0) {
-//         //   try {
-//         //     // Fetch suggestions from the backend based on user input
-//         //     const response = await axios.post('http://127.0.0.1:5000/suggest', { input: value });
-//         //     setSuggestions(response.data.suggestions);
-            
-//         //     // Set the first suggestion if available
-//         //     if (response.data.suggestions.length > 0) {
-//         //       setSuggestion(value + response.data.suggestions[0].slice(value.length));
-//         //     } else {
-//         //       setSuggestion(value);
-// //------------------NEW CODE------------------
-//         // Get the current line based on cursor position
-//         const lines = value.split('\n');
-//         let currentLineIndex = 0;
-//         let charCount = 0;
-        
-//         for (let i = 0; i < lines.length; i++) {
-//             charCount += lines[i].length + 1; // +1 for the newline character
-//             if (charCount > e.target.selectionStart) {
-//                 currentLineIndex = i;
-//                 break;
-//             }
-//         }
-        
-//         const currentLine = lines[currentLineIndex];
-// //------------------------------------
-//         if (currentLine && currentLine.length > 0) {
-//             try {
-//                 const response = await axios.post('http://127.0.0.1:5000/suggest', { input: currentLine });
-//                 setSuggestions(response.data.suggestions);
-//             } catch (error) {
-//                 console.error("Error fetching suggestions:", error);
-//             }
-//         }else {
-//           setSuggestions([]);
-//           setSuggestion(value); // Clear suggestion if input is empty
-//         }
-//     };
       
 const handleChange = async (e) => {
     const value = e.target.value;
@@ -316,51 +248,6 @@ const handleKeyDown = (e) => {
         }
     };
 
-// the visual part(render) - Render the textarea and suggestions dropdown
-    // return (
-    //     <div className="search-bar-container" ref={containerRef}>
-    //         <textarea
-    //             ref={inputRef}
-    //             value={input}
-    //             onChange={handleChange}
-    //             onKeyDown={handleKeyDown}
-    //             onSelect={(e) => {
-    //                 setCursorPosition(e.target.selectionStart);
-    //                 updateDropdownPosition();
-    //             }}
-    //             onScroll={updateDropdownPosition}
-    //             placeholder="Type something here..."
-    //             className="search-bar"
-    //             id='search-bar'
-    //             style={{ position: "relative", zIndex: 2 }}
-    //             rows={1}
-    //             // style={{ZIndex: 2}}
-    //         />
-
-
-    //         <input
-    //             type="text"
-    //             className="search-bar"
-    //             id="search-bar-2"
-    //             value={suggestion}
-    //             readOnly
-    //             style={{ height:"25px",width: "100%", zIndex: 2 }}
-    //         />
-            
-    
-
-    //         {/* Suggestions dropdown */}
-    //         {suggestions.length > 0 && (
-    //             <SuggestionsDropdown
-    //                 suggestions={suggestions}
-    //                 onClick={handleSuggestionClick}
-    //                 position={dropdownPosition}
-    //                 selectedIndex={selectedIndex}
-                    
-    //             />
-    //         )}
-    //     </div>
-    // );
 
 
     //placeholder working for the first line
@@ -380,9 +267,9 @@ const handleKeyDown = (e) => {
                 style={{
                     position: "relative",
                     zIndex: 2,
-                    // width: "300px",
+                    // width: "300px", //no need
                     height: "400px",
-                    resize: "none",
+                    resize: "none", 
                     fontSize: "16px",
                     padding: "10px 15px",
                     color: "#000",
@@ -405,7 +292,7 @@ const handleKeyDown = (e) => {
                     position: "absolute",
                     top: 0,
                     left: 0,
-                    width: "100%",
+                    width: "100%",// fixing the placeholder to expand in the textarea
                     resize: "none",
                     height: "40px",
                     fontSize: "16px",
@@ -417,7 +304,7 @@ const handleKeyDown = (e) => {
                     pointerEvents: "none", // Non-interactive
                     zIndex: 2,
                     boxSizing: "border-box",
-                    marginTop: "3px"
+                    marginTop: "3px" //for overlapping the user input and the autocompletion placeholder
                 }}
             />
     
