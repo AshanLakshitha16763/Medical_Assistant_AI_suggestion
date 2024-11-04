@@ -5,19 +5,46 @@ from datasets import load_dataset
 tokenizer = BioGptTokenizer.from_pretrained('microsoft/BioGPT')
 model = BioGptForCausalLM.from_pretrained('microsoft/BioGPT')
 
-# Load your dataset
-dataset = load_dataset('csv', data_files='Next_Word_Prediction/data/medical_completion_dataset.csv')
+# Load dataset
+dataset = load_dataset('csv', data_files='data/drugs_side_effects_dataset.csv')
 
 
 
-# Split the dataset into (80% train, 20% validation)
-dataset = dataset['train'].train_test_split(test_size=0.2)
+# Split the dataset into (90% train, 10% validation)
+dataset = dataset['train'].train_test_split(test_size=0.1)
 
-# Tokenize the dataset for causal language modeling
+
+"""def tokenize_function(examples):
+    
+    # New Preprocessing part # Process each item in the side_effects list
+    texts = []
+    for side_effect in examples['side_effects']:
+        # Split each entry by comma, strip whitespace, and join with spaces
+        effects = [effect.strip() for effect in side_effect.split(',')]
+        texts.append(' '.join(effects))
+    
+    
+   
+    # Tokenize the text
+    inputs = tokenizer(texts, padding="max_length", truncation=True, max_length=128)
+    inputs['labels'] = inputs['input_ids'].copy()  # Set input_ids as labels for causal LM task
+    return inputs"""
+
 def tokenize_function(examples):
-    inputs = tokenizer(examples['Input'], padding="max_length", truncation=True, max_length=128)
+    texts = []
+    for side_effect in examples['side_effects']:
+        if side_effect is None:
+            texts.append('')  # Add an empty string if side_effect is None
+        else:
+            # Split by comma, strip whitespace, and join with spaces
+            effects = [effect.strip() for effect in side_effect.split(',')]
+            texts.append(' '.join(effects))
+
+    # Tokenize the batch of texts
+    inputs = tokenizer(texts, padding="max_length", truncation=True, max_length=128)
     inputs['labels'] = inputs['input_ids'].copy()  # Set input_ids as labels for causal LM task
     return inputs
+
 
 tokenized_datasets = dataset.map(tokenize_function, batched=True)
 
@@ -47,6 +74,7 @@ trainer.train()
 model.save_pretrained('./fine_tuned_BioGPT')
 tokenizer.save_pretrained('./fine_tuned_BioGPT')
 
+#First test run results:
 """Generating train split: 14 examples [00:01, 12.37 examples/s]
 Map: 100%|████████████████████████████████████████████████████████████████████████████████████████████████| 11/11 [00:00<00:00, 34.31 examples/s]
 Map: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████| 3/3 [00:00<00:00, 203.78 examples/s]
