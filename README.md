@@ -31,7 +31,7 @@ In your terminal, press ```ctrl``` + ```c``` keys.
     ```
 
 #### Setting up the Virtual Environment:
- * Refer the documentation to create and activate the virtual environment. (https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/)
+ * Refer the documentation to create and activate the virtual environment [here.](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/)
 
  * After activating Virtual Environment,run below commands in your terminal:
   
@@ -57,7 +57,7 @@ In your terminal, press ```ctrl``` + ```c``` keys.
     ```
 
 #### Setting up the Virtual Environment:
- * Refer the documentation to create and activate the virtual environment. (https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/)
+ * Refer the documentation to create and activate the virtual environment [here.](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/)
 
  * After activating Virtual Environment,run below commands in your terminal:
   
