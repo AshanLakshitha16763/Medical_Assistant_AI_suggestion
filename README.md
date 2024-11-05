@@ -35,7 +35,7 @@ In your terminal, press ```ctrl``` + ```c``` keys.
 
  * After activating Virtual Environment,run below commands in your terminal:
   
- * To install Dependencies(Can change According to your requirement):
+ * To install Dependencies:
     ```
     pip install flask flask-cors transformers torch
     ```
@@ -60,20 +60,54 @@ In your terminal, press ```ctrl``` + ```c``` keys.
  * Refer the documentation to create and activate the virtual environment [here.](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/)
 
  * After activating Virtual Environment,run below commands in your terminal:
-  
- * To install Dependencies(Can change According to your requirement):
-    ```
-    pip install transformers==4.30.2 torch sacremoses 
-    ```
-    
- * To run the Predictor python file:
+   
+#### Installing Dependencies to run predictor.py
+ * To install pytorch. Refer the official site [here](https://pytorch.org/get-started/locally/)
+ * To install transformers.
+   ```
+   pip install transformers
+   ```
+ * To install protobuf.
+   ```
+   pip install protobuf
+   ```
+ * To install sacremoses.
+   ```
+   pip install sacremoses
+   ```
+ * Now, run the Predictor python file:
     ```
     python predictor.py
     ```
- * To run the Trainer python file:
+### Installing Dependencies to run trainer.py
+#### If you did not set up the above environment for the predictor.py, please follow below steps:
+   * Change the path of your terminal:
     ```
-    pip install transformers[torch] accelerate
+    cd Medical_Assistant/Next_Word_Prediction
     ```
+
+##### Setting up the Virtual Environment:
+  * Refer the documentation to create and activate the virtual environment [here.](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/)
+
+  * After activating Virtual Environment,run below commands in your terminal:
+   
+##### Installing Dependencies
+ * To install pytorch. Refer the official site [here](https://pytorch.org/get-started/locally/)
+ * To install transformers.
+   ```
+   pip install transformers
+   ```
+#### If you did setup .venv and install dependencies for predictor.py skip above steps and continue from here.
+ * First change the current directory in the terminal and navigate to the virtual environment and activate.
+ * To install datasets
+   ```
+    pip install datasets
+    ```
+ * To install accelerate
+   ```
+    pip install accelerate
+    ```
+ * Now, run the trainer.py file:
     ```
     python trainer.py
     ```      
