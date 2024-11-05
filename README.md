@@ -5,25 +5,27 @@ Medical_Assistant is a system that uses AI-driven speech-to-text and text-genera
 
 ### Frontend_Configuration
 
-#### Install dependencies for the React frontend:
-* Go to frontend folder:
+* Change current directory to frontend folder:
     ```
     cd Medical_Assistant/AI_Suggestion_App/frontend
     ```
+* To install dependencies 
     ```
     npm install
     ```
+* To run the frontend
     ```
     npm start
     ```
 
-* It will run on your browser.
+* Now, it will run on your browser.
 * To stop the server:
 In your terminal, press ```ctrl``` + ```c``` keys.
 
 
 ### Backend_Configuration
-* Give the right path to your terminal:
+* Use a new seperate terminal for the backend
+* Change current directory to backend folder:
     ```
     cd Medical_Assistant/AI_Suggestion_App/backend
     ```
