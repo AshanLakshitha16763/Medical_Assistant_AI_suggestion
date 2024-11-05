@@ -6,8 +6,9 @@ tokenizer = BioGptTokenizer.from_pretrained('microsoft/BioGPT')
 model = BioGptForCausalLM.from_pretrained('microsoft/BioGPT')
 
 # Load dataset
-dataset = load_dataset('csv', data_files='data/drugs_side_effects_dataset.csv')
+# dataset = load_dataset('csv', data_files='data/drugs_side_effects_dataset.csv')
 
+dataset = load_dataset('csv', data_files='data/medical_completion_dataset.csv')
 
 
 # Split the dataset into (90% train, 10% validation)
@@ -32,7 +33,7 @@ dataset = dataset['train'].train_test_split(test_size=0.1)
 
 def tokenize_function(examples):
     texts = []
-    for side_effect in examples['side_effects']:
+    for side_effect in examples['Completion']:
         if side_effect is None:
             texts.append('')  # Add an empty string if side_effect is None
         else:
