@@ -3,6 +3,7 @@ import axios from 'axios';
 import SuggestionsDropdown from './SuggestionsDropdown';
 import './SearchBar.css';
 
+
 function SearchBar() {
 
 // state Management - keeping track of the input value, suggestions, dropdown position, selected index, and cursor position 
@@ -17,6 +18,9 @@ function SearchBar() {
     const inputRef = useRef(null);
     const containerRef = useRef(null);
 
+    const [suggestion, setSuggestion] = useState("");
+    
+
 // Effect hooks - Automatically update the dropdown position when the window is resized
     useEffect(() => {
         window.addEventListener('resize', updateDropdownPosition);
@@ -25,45 +29,58 @@ function SearchBar() {
         };
     }, [input]);
 
+
     useEffect(() => {
         adjustTextareaHeight();
     }, [input]);
 
 
-// Handling user input - Update the input value, fetch suggestions, and update the dropdown position
-    const handleChange = async (e) => {
-        const value = e.target.value;
-        setInput(value);
-        setCursorPosition(e.target.selectionStart);
-        setSelectedIndex(-1);
-        updateDropdownPosition();
-//------------------NEW CODE------------------
-        // Get the current line based on cursor position
-        const lines = value.split('\n');
-        let currentLineIndex = 0;
-        let charCount = 0;
-        
-        for (let i = 0; i < lines.length; i++) {
-            charCount += lines[i].length + 1; // +1 for the newline character
-            if (charCount > e.target.selectionStart) {
-                currentLineIndex = i;
-                break;
-            }
+      
+const handleChange = async (e) => {
+    const value = e.target.value;
+    setInput(value);
+    setCursorPosition(e.target.selectionStart);
+    setSelectedIndex(-1);
+    updateDropdownPosition();
+
+    // Split input into lines and find the current line based on cursor position
+    const lines = value.split('\n');
+    let currentLineIndex = 0;
+    let charCount = 0;
+
+    for (let i = 0; i < lines.length; i++) {
+        charCount += lines[i].length + 1; // +1 for the newline character
+        if (charCount > e.target.selectionStart) {
+            currentLineIndex = i;
+            break;
         }
-        
-        const currentLine = lines[currentLineIndex];
-//------------------------------------
-        if (currentLine && currentLine.length > 0) {
-            try {
-                const response = await axios.post('http://127.0.0.1:5000/suggest', { input: currentLine });
-                setSuggestions(response.data.suggestions);
-            } catch (error) {
-                console.error("Error fetching suggestions:", error);
+    }
+
+    const currentLine = lines[currentLineIndex];
+
+    // Check if current line or value has content before fetching suggestions
+    if (currentLine && currentLine.length > 0) {
+        try {
+            // Fetch suggestions based on the current line
+            const response = await axios.post('http://127.0.0.1:5000/suggest', { input: currentLine });
+            setSuggestions(response.data.suggestions);
+
+            // Set the suggestion for autocomplete
+            if (response.data.suggestions.length > 0) {
+                setSuggestion(value + response.data.suggestions[0].slice(currentLine.length));
+            } else {
+                setSuggestion(value);
             }
-        } else {
-            setSuggestions([]);
+        } catch (error) {
+            console.error("Error fetching suggestions:", error);
+            setSuggestions([]); // Clear suggestions on error
         }
-    };
+    } else {
+        setSuggestions([]);
+        setSuggestion(value); // Clear suggestion if input is empty
+    }
+};
+
 
 
 // Handling suggestion selection - Insert the selected suggestion into the input value
@@ -180,6 +197,9 @@ const handleKeyDown = (e) => {
                     break;
             }
         }
+        if (e.keyCode === 39) { // Right arrow key
+            setInput(suggestion);
+          }
     };
 
    
@@ -228,36 +248,78 @@ const handleKeyDown = (e) => {
         }
     };
 
-// the visual part(render) - Render the textarea and suggestions dropdown
+
+
+    //placeholder working for the first line
     return (
-        <div className="search-bar-container" ref={containerRef}>
+        <div className="search-bar-container" ref={containerRef} style={{ position: "relative",  display: "inline-flex", alignItems: "center" }}>
+            {/* Main input (textarea) */}
             <textarea
                 ref={inputRef}
                 value={input}
                 onChange={handleChange}
                 onKeyDown={handleKeyDown}
-                onSelect={(e) => {
-                    setCursorPosition(e.target.selectionStart);
-                    updateDropdownPosition();
-                }}
+                onSelect={updateDropdownPosition}
                 onScroll={updateDropdownPosition}
                 placeholder="Type something here..."
                 className="search-bar"
+                id="search-bar"
+                style={{
+                    position: "relative",
+                    zIndex: 2,
+                    // width: "300px", //no need
+                    height: "400px",
+                    resize: "none", 
+                    fontSize: "16px",
+                    padding: "10px 15px",
+                    color: "#000",
+                    background: "transparent",
+                    borderRadius: "20px",
+                    border: "1px solid #ccc",
+                    boxSizing: "border-box",
+                }}
                 rows={1}
-                style={{ZIndex: 2}}
             />
-            
+    
+            {/* Overlay input for suggestion acting as ghost text */}
+            <input
+                type="text"
+                className="search-bar-overlay"
+                id="search-bar-2"
+                value={suggestion}
+                readOnly
+                style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",// fixing the placeholder to expand in the textarea
+                    resize: "none",
+                    height: "40px",
+                    fontSize: "16px",
+                    padding: "10px 15px",
+                    color: "rgba(0, 0, 0, 0.3)", // Ghost text color
+                    background: "transparent",
+                    borderRadius: "20px",
+                    border: "1px solid transparent", // No border to avoid overlap
+                    pointerEvents: "none", // Non-interactive
+                    zIndex: 2,
+                    boxSizing: "border-box",
+                    marginTop: "3px" //for overlapping the user input and the autocompletion placeholder
+                }}
+            />
+    
+            {/* Suggestions dropdown */}
             {suggestions.length > 0 && (
                 <SuggestionsDropdown
                     suggestions={suggestions}
                     onClick={handleSuggestionClick}
                     position={dropdownPosition}
                     selectedIndex={selectedIndex}
-                    
                 />
             )}
         </div>
     );
+    
 }
 
 export default SearchBar;
