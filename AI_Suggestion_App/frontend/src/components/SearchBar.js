@@ -4,6 +4,8 @@ import SuggestionsDropdown from './SuggestionsDropdown';
 import './SearchBar.css';
 
 function SearchBar() {
+
+// state Management - keeping track of the input value, suggestions, dropdown position, selected index, and cursor position 
     const [input, setInput] = useState("");
     const [suggestions, setSuggestions] = useState([]);
     const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
@@ -13,11 +15,15 @@ function SearchBar() {
     const [ghostPosition, setGhostPosition] = useState({ top: 0, left: 0 });
     const [isLoading, setIsLoading] = useState(false);
 
+// References - Directly access to DOM elements
     const inputRef = useRef(null);
     const containerRef = useRef(null);
+
+// Debounce Timeout - To debounce API calls
     const [suggestion, setSuggestion] = useState("");
     const debounceTimeout = useRef(null);
 
+// Effect hooks - Automatically update the dropdown position when the window is resized
     useEffect(() => {
         window.addEventListener('resize', updatePositions);
         return () => {
@@ -33,12 +39,14 @@ function SearchBar() {
         updatePositions();
     }, [input]);
 
+//  updatePositions - Update the dropdown and ghost text positions
     const updatePositions = () => {
         if (!inputRef.current) return;
         updateDropdownPosition();
         updateGhostTextPosition();
     };
 
+// handleChange - Handle input change events
     const handleChange = async (e) => {
         const value = e.target.value;
         setInput(value);
@@ -82,13 +90,13 @@ function SearchBar() {
             resetSuggestions();
         }
     };
-
+// resetSuggestions - Reset the suggestions and ghost text
     const resetSuggestions = () => {
         setSuggestions([]);
         setGhostText("");
         setSuggestion(input);
     };
-
+// Handling suggestion selection - Insert the selected suggestion into the input value
     const handleSuggestionClick = (suggestion) => {
         const { currentLineStart, currentLine } = getCurrentLineInfo(input, cursorPosition);
         const newInput = input.slice(0, currentLineStart) + suggestion + 
@@ -98,16 +106,18 @@ function SearchBar() {
         setInput(newInput);
         setSuggestions([]);
         setSelectedIndex(-1);
-        
+
+        // Focus the input and set cursor position at the end
         if (inputRef.current) {
             inputRef.current.focus();
+            setCursorPosition(newCursorPosition); 
             requestAnimationFrame(() => {
                 inputRef.current.selectionStart = newCursorPosition;
                 inputRef.current.selectionEnd = newCursorPosition;
             });
         }
     };
-
+// Keyboard Controls - Handle Enter key, arrow keys, and suggestion selection
     const handleKeyDown = (e) => {
         if (e.key === 'Tab' && ghostText) {
             e.preventDefault();
@@ -267,6 +277,7 @@ function SearchBar() {
                     boxSizing: "border-box",
                     fontFamily: "Arial",
                     lineHeight: "1.5",
+                    
                 }}
             />
 
@@ -274,8 +285,8 @@ function SearchBar() {
                 className="ghost-text-overlay"
                 style={{
                     position: "absolute",
-                    top: ghostPosition.top,
-                    left: ghostPosition.left,
+//                    top: ghostPosition.top,
+//                    left: ghostPosition.left,
                     width: "100%",
                     height: "100%",
                     pointerEvents: "none",
