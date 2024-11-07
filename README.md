@@ -80,11 +80,11 @@ In your terminal, press ```ctrl``` + ```c``` keys.
     python predictor.py
     ```
 ### Installing Dependencies to run trainer.py
-#### If you did not set up the above environment for the predictor.py, please follow below steps:
+### *** If you did not set up the above environment for the predictor.py, please follow below steps:
    * Change the path of your terminal:
-    ```
+ ```
     cd Medical_Assistant/Next_Word_Prediction
-    ```
+ ```
 
 ##### Setting up the Virtual Environment:
   * Refer the documentation to create and activate the virtual environment [here.](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/)
@@ -97,7 +97,7 @@ In your terminal, press ```ctrl``` + ```c``` keys.
    ```
    pip install transformers
    ```
-#### If you did setup .venv and install dependencies for predictor.py skip above steps and continue from here.
+### *** If you did setup .venv and install dependencies for predictor.py skip the above steps and continue from here....
  * First change the current directory in the terminal and navigate to the virtual environment and activate.
  * To install datasets
    ```
