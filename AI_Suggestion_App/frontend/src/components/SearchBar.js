@@ -273,7 +273,7 @@ function SearchBar() {
                     color: "#000",
                     background: "transparent",
                     borderRadius: "20px",
-                    border: "1px solid #ccc",
+                    border: "2px solid #ccc",
                     boxSizing: "border-box",
                     fontFamily: "Arial",
                     lineHeight: "1.5",

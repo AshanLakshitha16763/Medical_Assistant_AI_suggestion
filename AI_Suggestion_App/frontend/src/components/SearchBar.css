@@ -3,16 +3,16 @@
     width: 100%;
     max-width: 800px;
     margin: 20px auto;
-    border: 1px solid rgb(58, 50, 104);
+    border: rgb(239, 238, 244);
 }
 
 .search-bar {
     width: 100%;
     padding: 15px;
     font-size: 16px;
-    border: 1px solid #ccc;
+    border: solid #ccc;
     border-radius: 10px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 2px 4px rgba(17, 1, 185, 0.1);
     /*conflict with ashali dev*/
     resize: none;
     overflow-y: hidden;
@@ -34,12 +34,12 @@
 .search-bar:focus {
     outline: none;
     border-color: 1px solid #07684b;
-    box-shadow: 0px 0px 0px 3px rgba(15, 3, 251, 0.25);
+    box-shadow: 0px 0px 0px 3px rgba(16, 5, 237, 0.25);
 }
 
 .ghost-text-overlay{
     margin:auto;
     text-align: left;
-    margin-top: 1px;
-    margin-left: 1px;
+    margin-top: 4px;
+    margin-left: 2px;
 }
