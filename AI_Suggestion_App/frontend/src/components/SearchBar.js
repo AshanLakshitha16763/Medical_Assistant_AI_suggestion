@@ -11,9 +11,11 @@ function SearchBar() {
     const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
     const [selectedIndex, setSelectedIndex] = useState(-1);
     const [cursorPosition, setCursorPosition] = useState(0);
+
     const [ghostText, setGhostText] = useState("");
     const [ghostPosition, setGhostPosition] = useState({ top: 0, left: 0 });
     const [isLoading, setIsLoading] = useState(false);
+    const [navigationGhostText,setNavigationGhostText] = useState(false);
 
 // References - Directly access to DOM elements
     const inputRef = useRef(null);
@@ -52,6 +54,7 @@ function SearchBar() {
         setInput(value);
         setCursorPosition(e.target.selectionStart);
         setSelectedIndex(-1);
+        setNavigationGhostText("");
 
         // Clear previous timeout
         if (debounceTimeout.current) {
@@ -95,6 +98,7 @@ function SearchBar() {
         setSuggestions([]);
         setGhostText("");
         setSuggestion(input);
+        setNavigationGhostText("");
     };
 // Handling suggestion selection - Insert the selected suggestion into the input value
     const handleSuggestionClick = (suggestion) => {
@@ -106,6 +110,7 @@ function SearchBar() {
         setInput(newInput);
         setSuggestions([]);
         setSelectedIndex(-1);
+        setNavigationGhostText("");
 
         // Focus the input and set cursor position at the end
         if (inputRef.current) {
@@ -119,10 +124,11 @@ function SearchBar() {
     };
 // Keyboard Controls - Handle Enter key, arrow keys, and suggestion selection
     const handleKeyDown = (e) => {
-        if (e.key === 'Tab' && ghostText) {
+        if (e.key === 'Tab' && (ghostText|| navigationGhostText)) {
             e.preventDefault();
-            setInput(suggestion);
-            setCursorPosition(suggestion.length);
+            const textToComplete =   navigationGhostText || suggestion;
+            setInput(textToComplete);
+            setCursorPosition(textToComplete.length);
             resetSuggestions();
         } else if (e.key === 'Enter' && e.shiftKey) {
             e.preventDefault();
@@ -166,11 +172,15 @@ function SearchBar() {
         setSelectedIndex(prevIndex => {
             const totalSuggestions = suggestions.length;
             const newIndex = (prevIndex + direction + totalSuggestions) % totalSuggestions;
+
             const { currentLineStart, currentLine } = getCurrentLineInfo(input, cursorPosition);
-            const newInput = input.slice(0, currentLineStart) + 
-                          suggestions[newIndex] + 
+            const selectedSuggestion = suggestions[newIndex];
+
+            const newNavigationText = input.slice(0, currentLineStart) + 
+                          selectedSuggestion + 
                           input.slice(currentLineStart + currentLine.length);
-            setInput(newInput);
+            setNavigationGhostText(newNavigationText);
+
             return newIndex;
         });
     };
@@ -301,10 +311,11 @@ function SearchBar() {
                     lineHeight: "1.5",
                 }}
             >
-                {suggestion}
+                {navigationGhostText || suggestion}
             </div>
 
-            {isLoading && (
+          
+            {/*isLoading && (
                 <div className="loading-indicator" style={{
                     position: "absolute",
                     right: "20px",
@@ -314,8 +325,8 @@ function SearchBar() {
                 }}>
                   Loading... 
                 </div>
-            )}
-
+            )*/}
+    
             {suggestions.length > 0 && (
                 <SuggestionsDropdown
                     suggestions={suggestions}
