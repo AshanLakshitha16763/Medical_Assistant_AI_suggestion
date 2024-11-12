@@ -15,7 +15,7 @@ function SearchBar() {
     const [ghostText, setGhostText] = useState("");
     const [ghostPosition, setGhostPosition] = useState({ top: 0, left: 0 });
     const [isLoading, setIsLoading] = useState(false);
-    const [navigationGhostText,setNavigationGhostText] = useState(false);
+    const [navigationGhostText,setNavigationGhostText] = useState("");
 
 // References - Directly access to DOM elements
     const inputRef = useRef(null);
@@ -103,8 +103,7 @@ function SearchBar() {
 // Handling suggestion selection - Insert the selected suggestion into the input value
     const handleSuggestionClick = (suggestion) => {
         const { currentLineStart, currentLine } = getCurrentLineInfo(input, cursorPosition);
-        const newInput = input.slice(0, currentLineStart) + suggestion + 
-                        input.slice(currentLineStart + currentLine.length);
+        const newInput = input.slice(0, currentLineStart) + suggestion + input.slice(currentLineStart + currentLine.length);
         const newCursorPosition = currentLineStart + suggestion.length;
 
         setInput(newInput);
@@ -124,7 +123,7 @@ function SearchBar() {
     };
 // Keyboard Controls - Handle Enter key, arrow keys, and suggestion selection
     const handleKeyDown = (e) => {
-        if (e.key === 'Tab' && (ghostText|| navigationGhostText)) {
+        if (e.key === 'Enter' && (ghostText|| navigationGhostText)) {
             e.preventDefault();
             const textToComplete =   navigationGhostText || suggestion;
             setInput(textToComplete);
@@ -295,8 +294,6 @@ function SearchBar() {
                 className="ghost-text-overlay"
                 style={{
                     position: "absolute",
-//                    top: ghostPosition.top,
-//                    left: ghostPosition.left,
                     width: "100%",
                     height: "100%",
                     pointerEvents: "none",
@@ -314,7 +311,6 @@ function SearchBar() {
                 {navigationGhostText || suggestion}
             </div>
 
-          
             {/*isLoading && (
                 <div className="loading-indicator" style={{
                     position: "absolute",
@@ -326,7 +322,7 @@ function SearchBar() {
                   Loading... 
                 </div>
             )*/}
-    
+
             {suggestions.length > 0 && (
                 <SuggestionsDropdown
                     suggestions={suggestions}
