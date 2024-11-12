@@ -251,8 +251,8 @@ function SearchBar() {
     const adjustTextareaHeight = () => {
         if (!inputRef.current) return;
         inputRef.current.style.height = 'auto';
-        const maxHeight = 400; // Maximum height in pixels
-        inputRef.current.style.height = `${Math.min(inputRef.current.scrollHeight, maxHeight)}px`;
+        const maxHeight = '1000px'; // Increase the maximum height
+        inputRef.current.style.height = `${Math.min(inputRef.current.scrollHeight, 1000)}px`; // Adjust height based on content
     };
 
     return (
