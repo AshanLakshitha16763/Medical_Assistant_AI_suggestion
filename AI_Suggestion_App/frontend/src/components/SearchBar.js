@@ -274,17 +274,12 @@ function SearchBar() {
                     position: "relative",
                     zIndex: 2,
                     width: "100%",
-                    maxHeight: "400px",
-                    minHeight: "100px",
                     resize: "none",
                     fontSize: "16px",
-                    padding: "10px 15px",
                     color: "#000",
                     background: "transparent",
-                    borderRadius: "20px",
-                    border: "2px solid #ccc",
                     boxSizing: "border-box",
-                    fontFamily: "Arial",
+                    fontFamily: "monospace",
                     lineHeight: "1.5",
                     
                 }}
@@ -304,7 +299,7 @@ function SearchBar() {
                     whiteSpace: "pre-wrap",
                     overflow: "hidden",
                     fontSize: "16px",
-                    fontFamily: "Arial",
+                    fontFamily: "monospace",
                     lineHeight: "1.5",
                 }}
             >
