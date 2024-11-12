@@ -27,7 +27,7 @@
 }
     
 
-/* when we going to typing the search bar border in blue. its like hovering */
+/* hovering of the border */
 .search-bar:focus {
     outline: none;
     border-color: #007bff;
