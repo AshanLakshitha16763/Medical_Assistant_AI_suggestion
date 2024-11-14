@@ -251,8 +251,8 @@ function SearchBar() {
     const adjustTextareaHeight = () => {
         if (!inputRef.current) return;
         inputRef.current.style.height = 'auto';
-        const maxHeight = '1000px'; // Increase the maximum height
-        inputRef.current.style.height = `${Math.min(inputRef.current.scrollHeight, 1000)}px`; // Adjust height based on content
+        const maxHeight = '500px'; // Increase the maximum height
+        inputRef.current.style.height = `${Math.min(inputRef.current.scrollHeight, 500)}px`; // Adjust height based on content
     };
 
     return (
@@ -305,18 +305,6 @@ function SearchBar() {
             >
                 {navigationGhostText || suggestion}
             </div>
-
-            {/*isLoading && (
-                <div className="loading-indicator" style={{
-                    position: "absolute",
-                    right: "20px",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    zIndex: 3
-                }}>
-                  Loading... 
-                </div>
-            )*/}
 
             {suggestions.length > 0 && (
                 <SuggestionsDropdown

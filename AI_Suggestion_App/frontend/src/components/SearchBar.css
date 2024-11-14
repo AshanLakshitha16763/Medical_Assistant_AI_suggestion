@@ -2,7 +2,7 @@
     position:relative;
     width: 100%;
     max-width: 800px;
-    max-height:1000px;
+    /*max-height:1000px;*/
     margin: 20px auto;
     border: 1px solid rgb(249, 249, 249);
 }
@@ -13,7 +13,6 @@
     font-size: 16px;
     border-radius: 15px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    /*conflict with ashali dev*/
     resize: none;
     overflow-y: hidden;
     transition: height 0.2s ease;
@@ -38,7 +37,7 @@
 .ghost-text-overlay{
     position: absolute;
     max-width: 800px;
-    max-height:1000px;
+    /*max-height:1000px;*/
     text-align: left;
     color: #ccc;
     margin-top: 12px;
