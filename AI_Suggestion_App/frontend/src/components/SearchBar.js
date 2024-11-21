@@ -16,6 +16,7 @@ function SearchBar() {
     const [ghostPosition, setGhostPosition] = useState({ top: 0, left: 0 });
     const [isLoading, setIsLoading] = useState(false);
     const [navigationGhostText,setNavigationGhostText] = useState("");
+    const ghostOverlayRef = useRef(null);
 
 // References - Directly access to DOM elements
     const inputRef = useRef(null);
@@ -46,6 +47,12 @@ function SearchBar() {
         if (!inputRef.current) return;
         updateDropdownPosition();
         updateGhostTextPosition();
+    };
+
+    const syncScroll = () => {
+        if(inputRef.current && ghostOverlayRef.current) {
+            ghostOverlayRef.current.scrollTop = inputRef.current.scrollTop;
+        }
     };
 
 // handleChange - Handle input change events
@@ -251,8 +258,15 @@ function SearchBar() {
     const adjustTextareaHeight = () => {
         if (!inputRef.current) return;
         inputRef.current.style.height = 'auto';
-        const maxHeight = '500px'; // Increase the maximum height
-        inputRef.current.style.height = `${Math.min(inputRef.current.scrollHeight, 500)}px`; // Adjust height based on content
+        const maxHeight = 500; // Increase the maximum height
+        const newHeight = Math.min(inputRef.current.scrollHeight, maxHeight);
+        inputRef.current.style.height = `${newHeight}px`; // Adjust height based on content
+
+        //Enable scrolling if content exceeds the maximum height
+        if(inputRef.current.scrollHeight > maxHeight) {
+            inputRef.current.style.overflowY = "scroll";
+        } 
+        else {inputRef.current.style.overflowY = "hidden";}
     };
 
     return (
@@ -266,12 +280,13 @@ function SearchBar() {
                     setCursorPosition(e.target.selectionStart);
                     updatePositions();
                 }}
-                onScroll={updatePositions}
+                onScroll={syncScroll}
                 placeholder="Type something here..."
                 className="search-bar"
                 id="search-bar"
                 style={{
                     position: "relative",
+                    overflowY: 'auto',
                     zIndex: 2,
                     width: "100%",
                     resize: "none",
@@ -286,6 +301,7 @@ function SearchBar() {
             />
 
             <div
+                ref={ghostOverlayRef}
                 className="ghost-text-overlay"
                 style={{
                     position: "absolute",
@@ -297,10 +313,12 @@ function SearchBar() {
                     boxSizing: "border-box",
                     color: "rgba(0, 0, 0, 0.3)",
                     whiteSpace: "pre-wrap",
-                    overflow: "hidden",
+                    overflow: "auto",
                     fontSize: "16px",
                     fontFamily: "monospace",
                     lineHeight: "1.5",
+                    top:0,
+                    left:0,
                 }}
             >
                 {navigationGhostText || suggestion}

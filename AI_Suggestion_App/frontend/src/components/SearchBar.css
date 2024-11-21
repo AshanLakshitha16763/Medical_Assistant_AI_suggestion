@@ -14,7 +14,9 @@
     border-radius: 15px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     resize: none;
-    overflow-y: hidden;
+    overflow-y: auto !important;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
     transition: height 0.2s ease;
 }
 
@@ -40,8 +42,10 @@
     /*max-height:1000px;*/
     text-align: left;
     color: #ccc;
-    margin-top: 12px;
-    margin-left: 1px;
+    margin-top: 6px !important;
+    margin-left: 1px !important;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     pointer-events: none;
     transition: top 0.2s, font-size 0.2s;
 }
