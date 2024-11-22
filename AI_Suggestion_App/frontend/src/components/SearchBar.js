@@ -68,7 +68,7 @@ function SearchBar() {
         if(inputRef.current && ghostOverlayRef.current) {
             requestAnimationFrame(() => {
                 if (ghostOverlayRef.current) {
-                    ghostOverlayRef.current.style.transform = `translateY(-${inputRef.current.scrollTop}px)`;
+                    ghostOverlayRef.current.scrollTop = inputRef.current.scrollTop;
                 }
             });
         }
