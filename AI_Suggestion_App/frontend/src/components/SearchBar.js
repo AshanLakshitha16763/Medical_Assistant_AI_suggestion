@@ -26,6 +26,8 @@ function SearchBar() {
     const [suggestion, setSuggestion] = useState("");
     const debounceTimeout = useRef(null);
 
+// Adjust the height of the textarea based on its content
+
 // Effect hooks - Automatically update the dropdown position when the window is resized
     useEffect(() => {
         window.addEventListener('resize', updatePositions);
@@ -38,8 +40,21 @@ function SearchBar() {
     }, []);
 
     useEffect(() => {
+        const handleResize = () => {
+            adjustTextareaHeight();
+            updatePositions();
+            syncScroll();
+        };
+
+        window.addEventListener('resize', handleResize);
+        
+        // Initial sync
         adjustTextareaHeight();
-        updatePositions();
+        syncScroll();
+    
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
     }, [input]);
 
 //  updatePositions - Update the dropdown and ghost text positions
@@ -51,9 +66,14 @@ function SearchBar() {
 
     const syncScroll = () => {
         if(inputRef.current && ghostOverlayRef.current) {
-            ghostOverlayRef.current.scrollTop = inputRef.current.scrollTop;
+            requestAnimationFrame(() => {
+                if (ghostOverlayRef.current) {
+                    ghostOverlayRef.current.style.transform = `translateY(-${inputRef.current.scrollTop}px)`;
+                }
+            });
         }
     };
+
 
 // handleChange - Handle input change events
     const handleChange = async (e) => {
@@ -265,8 +285,17 @@ function SearchBar() {
         //Enable scrolling if content exceeds the maximum height
         if(inputRef.current.scrollHeight > maxHeight) {
             inputRef.current.style.overflowY = "scroll";
-        } 
-        else {inputRef.current.style.overflowY = "hidden";}
+        
+        if(ghostOverlayRef.current){
+            ghostOverlayRef.current.style.height = `${inputRef.current.scrollHeight}px`;
+            }
+           }   else {inputRef.current.style.overflowY = "hidden";
+
+            if(ghostOverlayRef.current) {
+                ghostOverlayRef.current.style.height = "100%";
+            }
+        }
+        
     };
 
     return (
@@ -309,14 +338,15 @@ function SearchBar() {
                     height: "100%",
                     pointerEvents: "none",
                     zIndex: 1,
-                    padding: "10px 15px",
+                    padding: "16px 16px",
                     boxSizing: "border-box",
                     color: "rgba(0, 0, 0, 0.3)",
                     whiteSpace: "pre-wrap",
-                    overflow: "auto",
+                    overflow: "hidden",
                     fontSize: "16px",
                     fontFamily: "monospace",
                     lineHeight: "1.5",
+                    clipPath: "inset(0)",
                     top:0,
                     left:0,
                 }}
@@ -335,5 +365,4 @@ function SearchBar() {
         </div>
     );
 }
-
 export default SearchBar;
