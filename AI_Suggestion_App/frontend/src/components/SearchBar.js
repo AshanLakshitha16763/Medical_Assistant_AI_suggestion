@@ -66,11 +66,7 @@ function SearchBar() {
 
     const syncScroll = () => {
         if(inputRef.current && ghostOverlayRef.current) {
-            requestAnimationFrame(() => {
-                if (ghostOverlayRef.current) {
-                    ghostOverlayRef.current.scrollTop = inputRef.current.scrollTop;
-                }
-            });
+            ghostOverlayRef.current.scrollTop = inputRef.current.scrollTop;
         }
     };
 
@@ -277,23 +273,29 @@ function SearchBar() {
 
     const adjustTextareaHeight = () => {
         if (!inputRef.current) return;
+
         inputRef.current.style.height = 'auto';
+
+        const scrollHeight = inputRef.current.scrollHeight;
         const maxHeight = 500; // Increase the maximum height
-        const newHeight = Math.min(inputRef.current.scrollHeight, maxHeight);
-        inputRef.current.style.height = `${newHeight}px`; // Adjust height based on content
+        const newHeight = Math.min(scrollHeight, maxHeight);
+
+        // set the height of the textarea and ghost overlay
+        inputRef.current.style.height = `${newHeight}px`; 
+        
+
 
         //Enable scrolling if content exceeds the maximum height
-        if(inputRef.current.scrollHeight > maxHeight) {
+        if(scrollHeight > maxHeight) {
             inputRef.current.style.overflowY = "scroll";
-        
-        if(ghostOverlayRef.current){
-            ghostOverlayRef.current.style.height = `${inputRef.current.scrollHeight}px`;
-            }
-           }   else {inputRef.current.style.overflowY = "hidden";
+            
 
-            if(ghostOverlayRef.current) {
-                ghostOverlayRef.current.style.height = "100%";
-            }
+        }else {inputRef.current.style.overflowY = "hidden";
+                
+        }
+        
+        if (ghostOverlayRef.current) {
+            ghostOverlayRef.current.style.height = `${newHeight}px`;
         }
         
     };
