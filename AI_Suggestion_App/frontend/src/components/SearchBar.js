@@ -51,6 +51,7 @@ useEffect(() => {
     // syncthe scroll poritions of both elements        
             ghostOverlayRef.current.scrollTop = inputRef.current.scrollTop;
             ghostOverlayRef.current.scrollLeft = inputRef.current.scrollLeft;
+                updateGhostTextPosition(); // update the ghost text position
         }
     };
 
@@ -268,8 +269,10 @@ useEffect(() => {
         const lineHeight = parseInt(getComputedStyle(inputRef.current).lineHeight);
         const scrollTop = inputRef.current.scrollTop;
         
+        // Calculate the top position of the ghost text
         const topPosition = (currentLineIndex * lineHeight) - scrollTop;
 
+        //set the ghost text position
         setGhostPosition({
             top: topPosition,
             left: 0
@@ -286,12 +289,12 @@ useEffect(() => {
     const adjustTextareaHeight = () => {
         if (!inputRef.current) return;
         inputRef.current.style.height = 'auto';
-        const maxHeight = 500; // Increase the maximum height
-        const newHeight = Math.min(inputRef.current.scrollHeight, maxHeight);
+    //    const maxHeight = 500; // Increase the maximum height
+        const newHeight = Math.min(inputRef.current.scrollHeight, /*maxHeight*/);
         inputRef.current.style.height = `${newHeight}px`; // Adjust height based on content
 
         //Enable scrolling if content exceeds the maximum height
-        if(inputRef.current.scrollHeight > maxHeight) {
+        if(inputRef.current.scrollHeight /*> maxHeight*/) {
             inputRef.current.style.overflowY = "scroll";
         } 
         else {inputRef.current.style.overflowY = "hidden";}
