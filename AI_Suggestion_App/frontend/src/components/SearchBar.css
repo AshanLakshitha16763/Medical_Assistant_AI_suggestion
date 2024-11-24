@@ -14,7 +14,7 @@
     border-radius: 15px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     resize: none;
-    overflow-y: auto !important;
+    overflow-y: auto;
     scrollbar-width: thin; /* 1st scrool bar inside of searchbar */
     scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
     transition: height 0.2s ease;
@@ -50,4 +50,6 @@
     transition: top 0.2s, font-size 0.2s;
     line-height: inherit;
     will-change: transform;
+    pointer-events: none;
+    overflow-y: auto;
 }

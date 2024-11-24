@@ -48,6 +48,7 @@ function SearchBar() {
 useEffect(() => {
     const handleScroll = () => {
         if (inputRef.current && ghostOverlayRef.current) {
+    // syncthe scroll poritions of both elements        
             ghostOverlayRef.current.scrollTop = inputRef.current.scrollTop;
             ghostOverlayRef.current.scrollLeft = inputRef.current.scrollLeft;
         }
@@ -57,9 +58,11 @@ useEffect(() => {
     if (inputElement) {
         inputElement.addEventListener('scroll', handleScroll, { passive: true });
         
-        // Return cleanup function
+        // cleanup function to remove the event listener
         return () => {
+            if (inputElement) {
             inputElement.removeEventListener('scroll', handleScroll);
+            }
         };
     }
 }, []);
@@ -265,8 +268,10 @@ useEffect(() => {
         const lineHeight = parseInt(getComputedStyle(inputRef.current).lineHeight);
         const scrollTop = inputRef.current.scrollTop;
         
+        const topPosition = (currentLineIndex * lineHeight) - scrollTop;
+
         setGhostPosition({
-            top: (currentLineIndex * lineHeight) - scrollTop,
+            top: topPosition,
             left: 0
         });
     };
@@ -342,7 +347,6 @@ useEffect(() => {
                     lineHeight: "1.5",
                     top:0,
                     left:0,
-                    overflowX: "auto",    // Add this to prevent horizontal scrollbar
                 }}
             >
                 {navigationGhostText || suggestion}
