@@ -14,7 +14,6 @@ function SearchBar() {
 
     const [ghostText, setGhostText] = useState("");
     const [ghostPosition, setGhostPosition] = useState({ top: 0, left: 0 });
-    const [isLoading, setIsLoading] = useState(false);
     const [navigationGhostText,setNavigationGhostText] = useState("");
     const ghostOverlayRef = useRef(null);
 
@@ -26,9 +25,9 @@ function SearchBar() {
     const [suggestion, setSuggestion] = useState("");
     const debounceTimeout = useRef(null);
 
-// Adjust the height of the textarea based on its content
-
 // Effect hooks - Automatically update the dropdown position when the window is resized
+
+//Window Resize handler
     useEffect(() => {
         window.addEventListener('resize', updatePositions);
         return () => {
@@ -39,23 +38,31 @@ function SearchBar() {
         };
     }, []);
 
+//input change handler
     useEffect(() => {
-        const handleResize = () => {
-            adjustTextareaHeight();
-            updatePositions();
-            syncScroll();
-        };
-
-        window.addEventListener('resize', handleResize);
-        
-        // Initial sync
         adjustTextareaHeight();
-        syncScroll();
-    
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
+        updatePositions();
     }, [input]);
+
+//scroll synchronization handler
+useEffect(() => {
+    const handleScroll = () => {
+        if (inputRef.current && ghostOverlayRef.current) {
+            ghostOverlayRef.current.scrollTop = inputRef.current.scrollTop;
+            ghostOverlayRef.current.scrollLeft = inputRef.current.scrollLeft;
+        }
+    };
+
+    const inputElement = inputRef.current;
+    if (inputElement) {
+        inputElement.addEventListener('scroll', handleScroll, { passive: true });
+        
+        // Return cleanup function
+        return () => {
+            inputElement.removeEventListener('scroll', handleScroll);
+        };
+    }
+}, []);
 
 //  updatePositions - Update the dropdown and ghost text positions
     const updatePositions = () => {
@@ -66,10 +73,12 @@ function SearchBar() {
 
     const syncScroll = () => {
         if(inputRef.current && ghostOverlayRef.current) {
-            ghostOverlayRef.current.scrollTop = inputRef.current.scrollTop;
+            requestAnimationFrame(() => {
+                ghostOverlayRef.current.scrollTop = inputRef.current.scrollTop;
+                ghostOverlayRef.current.scrollLeft = inputRef.current.scrollLeft;
+             });
         }
     };
-
 
 // handleChange - Handle input change events
     const handleChange = async (e) => {
@@ -87,7 +96,7 @@ function SearchBar() {
         const { currentLine, currentLineStart } = getCurrentLineInfo(value, e.target.selectionStart);
 
         if (currentLine && currentLine.length > 0) {
-            setIsLoading(true);
+            
             // Debounce API calls
             debounceTimeout.current = setTimeout(async () => {
                 try {
@@ -108,9 +117,7 @@ function SearchBar() {
                 } catch (error) {
                     console.error("Error fetching suggestions:", error);
                     resetSuggestions();
-                } finally {
-                    setIsLoading(false);
-                }
+                } 
             }, 300); // 300ms debounce
         } else {
             resetSuggestions();
@@ -273,31 +280,16 @@ function SearchBar() {
 
     const adjustTextareaHeight = () => {
         if (!inputRef.current) return;
-
         inputRef.current.style.height = 'auto';
-
-        const scrollHeight = inputRef.current.scrollHeight;
         const maxHeight = 500; // Increase the maximum height
-        const newHeight = Math.min(scrollHeight, maxHeight);
-
-        // set the height of the textarea and ghost overlay
-        inputRef.current.style.height = `${newHeight}px`; 
-        
-
+        const newHeight = Math.min(inputRef.current.scrollHeight, maxHeight);
+        inputRef.current.style.height = `${newHeight}px`; // Adjust height based on content
 
         //Enable scrolling if content exceeds the maximum height
-        if(scrollHeight > maxHeight) {
+        if(inputRef.current.scrollHeight > maxHeight) {
             inputRef.current.style.overflowY = "scroll";
-            
-
-        }else {inputRef.current.style.overflowY = "hidden";
-                
-        }
-        
-        if (ghostOverlayRef.current) {
-            ghostOverlayRef.current.style.height = `${newHeight}px`;
-        }
-        
+        } 
+        else {inputRef.current.style.overflowY = "hidden";}
     };
 
     return (
@@ -344,13 +336,13 @@ function SearchBar() {
                     boxSizing: "border-box",
                     color: "rgba(0, 0, 0, 0.3)",
                     whiteSpace: "pre-wrap",
-                    overflow: "hidden",
+                    overflowY: "hidden",
                     fontSize: "16px",
                     fontFamily: "monospace",
                     lineHeight: "1.5",
-                    clipPath: "inset(0)",
                     top:0,
                     left:0,
+                    overflowX: "auto",    // Add this to prevent horizontal scrollbar
                 }}
             >
                 {navigationGhostText || suggestion}
@@ -367,4 +359,5 @@ function SearchBar() {
         </div>
     );
 }
+
 export default SearchBar;
