@@ -289,15 +289,24 @@ useEffect(() => {
     const adjustTextareaHeight = () => {
         if (!inputRef.current) return;
         inputRef.current.style.height = 'auto';
-    //    const maxHeight = 500; // Increase the maximum height
-        const newHeight = Math.min(inputRef.current.scrollHeight, /*maxHeight*/);
-        inputRef.current.style.height = `${newHeight}px`; // Adjust height based on content
+
+     //   const maxHeight = 500;  Increase the maximum height
+     
+     const newHeight = inputRef.current.scrollHeight;
+     // adding for max height
+     
+     /*const newHeight = Math.min(inputRef.current.scrollHeight, maxHeight);*/
+        inputRef.current.style.height = `${newHeight}px`; // 
+
 
         //Enable scrolling if content exceeds the maximum height
-        if(inputRef.current.scrollHeight /*> maxHeight*/) {
+        /*
+        if(inputRef.current.scrollHeight > maxHeight ) {
             inputRef.current.style.overflowY = "scroll";
         } 
         else {inputRef.current.style.overflowY = "hidden";}
+        */
+       inputRef.current.style.overflowY = "auto";
     };
 
     return (
