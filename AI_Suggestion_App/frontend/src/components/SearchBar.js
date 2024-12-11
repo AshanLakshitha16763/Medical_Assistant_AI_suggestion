@@ -14,8 +14,8 @@ function SearchBar() {
 
     const [ghostText, setGhostText] = useState("");
     const [ghostPosition, setGhostPosition] = useState({ top: 0, left: 0 });
-    const [isLoading, setIsLoading] = useState(false);
     const [navigationGhostText,setNavigationGhostText] = useState("");
+    const ghostOverlayRef = useRef(null);
 
 // References - Directly access to DOM elements
     const inputRef = useRef(null);
@@ -26,6 +26,8 @@ function SearchBar() {
     const debounceTimeout = useRef(null);
 
 // Effect hooks - Automatically update the dropdown position when the window is resized
+
+//Window Resize handler
     useEffect(() => {
         window.addEventListener('resize', updatePositions);
         return () => {
@@ -36,16 +38,50 @@ function SearchBar() {
         };
     }, []);
 
+//input change handler
     useEffect(() => {
         adjustTextareaHeight();
         updatePositions();
     }, [input]);
+
+//scroll synchronization handler
+useEffect(() => {
+    const handleScroll = () => {
+        if (inputRef.current && ghostOverlayRef.current) {
+    // syncthe scroll poritions of both elements        
+            ghostOverlayRef.current.scrollTop = inputRef.current.scrollTop;
+            ghostOverlayRef.current.scrollLeft = inputRef.current.scrollLeft;
+                updateGhostTextPosition(); // update the ghost text position
+        }
+    };
+
+    const inputElement = inputRef.current;
+    if (inputElement) {
+        inputElement.addEventListener('scroll', handleScroll, { passive: true });
+        
+        // cleanup function to remove the event listener
+        return () => {
+            if (inputElement) {
+            inputElement.removeEventListener('scroll', handleScroll);
+            }
+        };
+    }
+}, []);
 
 //  updatePositions - Update the dropdown and ghost text positions
     const updatePositions = () => {
         if (!inputRef.current) return;
         updateDropdownPosition();
         updateGhostTextPosition();
+    };
+
+    const syncScroll = () => {
+        if(inputRef.current && ghostOverlayRef.current) {
+            requestAnimationFrame(() => {
+                ghostOverlayRef.current.scrollTop = inputRef.current.scrollTop;
+                ghostOverlayRef.current.scrollLeft = inputRef.current.scrollLeft;
+             });
+        }
     };
 
 // handleChange - Handle input change events
@@ -64,7 +100,7 @@ function SearchBar() {
         const { currentLine, currentLineStart } = getCurrentLineInfo(value, e.target.selectionStart);
 
         if (currentLine && currentLine.length > 0) {
-            setIsLoading(true);
+            
             // Debounce API calls
             debounceTimeout.current = setTimeout(async () => {
                 try {
@@ -85,9 +121,7 @@ function SearchBar() {
                 } catch (error) {
                     console.error("Error fetching suggestions:", error);
                     resetSuggestions();
-                } finally {
-                    setIsLoading(false);
-                }
+                } 
             }, 300); // 300ms debounce
         } else {
             resetSuggestions();
@@ -235,8 +269,12 @@ function SearchBar() {
         const lineHeight = parseInt(getComputedStyle(inputRef.current).lineHeight);
         const scrollTop = inputRef.current.scrollTop;
         
+        // Calculate the top position of the ghost text
+        const topPosition = (currentLineIndex * lineHeight) - scrollTop;
+
+        //set the ghost text position
         setGhostPosition({
-            top: (currentLineIndex * lineHeight) - scrollTop,
+            top: topPosition,
             left: 0
         });
     };
@@ -251,8 +289,15 @@ function SearchBar() {
     const adjustTextareaHeight = () => {
         if (!inputRef.current) return;
         inputRef.current.style.height = 'auto';
-        const maxHeight = '1000px'; // Increase the maximum height
-        inputRef.current.style.height = `${Math.min(inputRef.current.scrollHeight, 1000)}px`; // Adjust height based on content
+    //    const maxHeight = 500; // Increase the maximum height
+        const newHeight = Math.min(inputRef.current.scrollHeight, /*maxHeight*/);
+        inputRef.current.style.height = `${newHeight}px`; // Adjust height based on content
+
+        //Enable scrolling if content exceeds the maximum height
+        if(inputRef.current.scrollHeight /*> maxHeight*/) {
+            inputRef.current.style.overflowY = "scroll";
+        } 
+        else {inputRef.current.style.overflowY = "hidden";}
     };
 
     return (
@@ -266,12 +311,13 @@ function SearchBar() {
                     setCursorPosition(e.target.selectionStart);
                     updatePositions();
                 }}
-                onScroll={updatePositions}
+                onScroll={syncScroll}
                 placeholder="Type something here..."
                 className="search-bar"
                 id="search-bar"
                 style={{
                     position: "relative",
+                    overflowY: 'auto',
                     zIndex: 2,
                     width: "100%",
                     resize: "none",
@@ -286,6 +332,7 @@ function SearchBar() {
             />
 
             <div
+                ref={ghostOverlayRef}
                 className="ghost-text-overlay"
                 style={{
                     position: "absolute",
@@ -293,30 +340,20 @@ function SearchBar() {
                     height: "100%",
                     pointerEvents: "none",
                     zIndex: 1,
-                    padding: "10px 15px",
+                    padding: "16px 16px",
                     boxSizing: "border-box",
                     color: "rgba(0, 0, 0, 0.3)",
                     whiteSpace: "pre-wrap",
-                    overflow: "hidden",
+                    overflowY: "hidden",
                     fontSize: "16px",
                     fontFamily: "monospace",
                     lineHeight: "1.5",
+                    top:0,
+                    left:0,
                 }}
             >
                 {navigationGhostText || suggestion}
             </div>
-
-            {/*isLoading && (
-                <div className="loading-indicator" style={{
-                    position: "absolute",
-                    right: "20px",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    zIndex: 3
-                }}>
-                  Loading... 
-                </div>
-            )*/}
 
             {suggestions.length > 0 && (
                 <SuggestionsDropdown
