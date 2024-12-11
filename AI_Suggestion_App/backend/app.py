@@ -6,7 +6,8 @@ from transformers import pipeline, AutoTokenizer, AutoModelForCausalLM
 app = Flask(__name__)
 CORS(app)
 
-model_name = "microsoft/BioGPT"
+
+model_name = "microsoft/BioGPT" #can call through local path also
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForCausalLM.from_pretrained(model_name)
 text_gen_model = pipeline('text-generation', model=model, tokenizer=tokenizer) # device=0 to use GPU in mac
