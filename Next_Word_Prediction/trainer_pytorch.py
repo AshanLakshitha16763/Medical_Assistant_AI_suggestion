@@ -70,6 +70,7 @@ model.save_pretrained(output_dir)
 tokenizer.save_pretrained(output_dir)
 
 # Save the model weights as a .bin file explicitly
+#using pytorch
 torch.save(model.state_dict(), f"{output_dir}/pytorch_model.bin")
 
 print(f"Model and tokenizer saved in {output_dir}")
