@@ -1,5 +1,26 @@
 # Medical_Assistant
-Medical_Assistant is a system that uses AI-driven speech-to-text and text-generation technologies to help doctors that creates patient symptom lists and prescriptions.
+Medical_Assistant is an innovative AI-powered solution designed to simplify and enhance medical practice. With advanced text-generation capabilities, it assists doctors by efficiently compiling patient symptom lists and drafting accurate prescriptions.
+
+## Testing deployed Application
+
+### **Check our deployed application [here.](https://medical-assistant-deploy.vercel.app/)**
+
+### Our github repositories
+
+* Our main [repository](https://github.com/Bistec-SUSL-2024/Medical_Assistant)
+
+* The [github repo](https://github.com/JehanRodrigo/Medical_Assistant_Deploy) which connected to Vercel.
+
+* The github repos which connected to google cloud platform
+    * [GPT2 with one suggestion.](https://github.com/AshanLakshitha16763/Medi_backend_GPT2)
+    * [BIoGPT with three suggestions.](https://github.com/AshanLakshitha16763/Medi_backend_bioGPT)
+      
+* The [repository](https://github.com/JehanRodrigo/Medical_Assistant_Backend) for testing backends.
+
+### Our deployments
+* The deployed backend with [GPT2.](https://medicalback-34822786368.asia-south1.run.app/)
+* The deployed backend with [BioGPT.](https://biosuggimg-1081715976745.asia-south1.run.app)
+
 
 ## AI_Suggestion_App
 
@@ -50,7 +71,8 @@ In your terminal, press ```ctrl``` + ```c``` keys.
 
 ## Next_Word_Prediction
 
-#### Predictor.py
+### Predictor.py
+
 * Change the path of your terminal:
     ```
     cd Medical_Assistant/Next_Word_Prediction
@@ -79,8 +101,8 @@ In your terminal, press ```ctrl``` + ```c``` keys.
     ```
     python predictor.py
     ```
-### Installing Dependencies to run trainer.py
-### *** If you did not set up the above environment for the predictor.py, please follow below steps:
+### Trainer_pythorch.py/Trainer_tensorflow.py
+#### *** If you did not set up the above environment for the predictor.py, please follow below steps:
    * Change the path of your terminal:
  ```
     cd Medical_Assistant/Next_Word_Prediction
@@ -90,7 +112,8 @@ In your terminal, press ```ctrl``` + ```c``` keys.
   * Refer the documentation to create and activate the virtual environment [here.](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/)
 
   * After activating Virtual Environment,run below commands in your terminal:
-   
+
+#### To run trainer_pytorch.py/trainer_tensorflow.py
 ##### Installing Dependencies
  * To install pytorch. Refer the official site [here](https://pytorch.org/get-started/locally/)
  * To install transformers.
@@ -107,10 +130,14 @@ In your terminal, press ```ctrl``` + ```c``` keys.
    ```
     pip install accelerate
     ```
- * Now, run the trainer.py file:
+ * Now, run the trainer_pytorch.py file:
     ```
-    python trainer.py
-    ```      
+    python trainer_pytorch.py
+    ```
+* Now, run the trainer_tensorflow.py file:
+    ```
+    python trainer_tensorflow.py
+    ```   
  * To stop the server:
     In your terminal, press ```ctrl``` + ```c``` keys.
  
