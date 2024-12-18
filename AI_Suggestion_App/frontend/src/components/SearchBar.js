@@ -315,6 +315,14 @@ useEffect(() => {
        inputRef.current.style.overflowY = "auto";
     };
 
+    // Get the placeholder text based on the selected model
+    const getPlaceholderText = () => {
+        if (!selectedModel) {
+            return "Type something here...";
+        }
+        return `Starting with ${selectedModel.name}...`;
+    };
+
     if (!backendUrl) {
         return (
             <div style={{ 
@@ -341,7 +349,7 @@ useEffect(() => {
                     updatePositions();
                 }}
                 onScroll={syncScroll}
-                placeholder="Type something here..."
+                placeholder={getPlaceholderText()} // Update placeholder text
                 className="search-bar"
                 id="search-bar"
                 style={{
