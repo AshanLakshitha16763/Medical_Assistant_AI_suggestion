@@ -3,15 +3,23 @@ Medical_Assistant is an innovative AI-powered solution designed to simplify and 
 
 ## Testing deployed Application
 
-### Frontend Deployment 
+### **Check our deployed application [here.](https://medical-assistant-deploy.vercel.app/)**
 
-* Link for the deployed frontend github repo through Vercel is [Here.](https://github.com/JehanRodrigo/Medical_Assistant_Deploy)
-* Link for the deployed frontend [URL.](https://medical-assistant-deploy.vercel.app/)
+### Our github repositories
 
-### Backend Deployment
+* Our main [repository](https://github.com/Bistec-SUSL-2024/Medical_Assistant)
 
-* Link for the deployed backend github repo through google cloude platform is [Here.](https://github.com/AshanLakshitha16763/Medi_backend_dockerize)
-* Link for the deployed backend [URL.](https://medicalback-34822786368.asia-south1.run.app/)
+* The [github repo](https://github.com/JehanRodrigo/Medical_Assistant_Deploy) which connected to Vercel.
+
+* The github repos which connected to google cloud platform
+    * [GPT2 with one suggestion.](https://github.com/AshanLakshitha16763/Medi_backend_GPT2)
+    * [BIoGPT with three suggestions.](https://github.com/AshanLakshitha16763/Medi_backend_bioGPT)
+      
+* The [repository](https://github.com/JehanRodrigo/Medical_Assistant_Backend) for testing backends.
+
+### Our deployments
+* The deployed backend with [GPT2.](https://medicalback-34822786368.asia-south1.run.app/)
+* The deployed backend with [BioGPT.](https://biosuggimg-1081715976745.asia-south1.run.app)
 
 
 ## AI_Suggestion_App
