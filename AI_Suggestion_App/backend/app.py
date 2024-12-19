@@ -10,7 +10,7 @@ CORS(app)
 model_name = "microsoft/BioGPT" #can call through local path also
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForCausalLM.from_pretrained(model_name)
-text_gen_model = pipeline('text-generation', model=model, tokenizer=tokenizer) # device=0 to use GPU in mac
+text_gen_model = pipeline('text-generation', model=model, tokenizer=tokenizer, temperature=1.9, device=-1, do_sample=True, truncation=True) # device=0 to use GPU in mac
 
 def generate_ai_suggestions(input_text, num_suggestions=3):
     generated = text_gen_model(input_text, max_length=20, num_return_sequences=num_suggestions, num_beams=3)
