@@ -320,7 +320,7 @@ useEffect(() => {
         if (!selectedModel) {
             return "Type something here...";
         }
-        return `Starting with ${selectedModel.name}...`;
+        return `Start typing with ${selectedModel.name}...`;
     };
 
     if (!backendUrl) {
