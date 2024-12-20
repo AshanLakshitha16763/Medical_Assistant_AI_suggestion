@@ -12,14 +12,18 @@ const ModelSelector = ({ onModelChange }) => {
           code: 'GPT2',
           description: 'General Purpose GPT Model' },
 
-        { name: 'GPT_02', code: 'GPT_02' },
-
-        { name: 'BioGPT Large', code: 'BIOGPT_LARGE' },
-
         { name: 'BioGPT', 
           code: 'BIOGPT',
-          description:'Specialized Biomedical GPT Model'
-         }
+          description:'Specialized Biomedical GPT Model'},
+
+        { name: 'GPT-3.5 Turbo',
+          code: 'GPT-3.5 Turbo',
+          description: 'GPT-3.5 Turbo Model' }, 
+
+        { name: 'GPT-4.0', 
+          code: 'GPT-4.0',
+          description: 'GPT-4.0 Model'},
+
     ];
 
     const handleModelChange = (e) => {
