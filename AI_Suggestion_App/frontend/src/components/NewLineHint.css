@@ -1,0 +1,28 @@
+.newline-hint {
+    position: fixed;
+    bottom: 475px;
+    right: 80px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background-color: #F8F9FC;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #4B5563;
+}
+
+.key-combo {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.k_button {
+    padding: 4px 8px;
+    background: white;
+    border-radius: 4px;
+    font-size: 12px;
+    box-shadow: 0 10px 5px rgba(49, 49, 49, 0.1);
+    font-family: monospace;
+}

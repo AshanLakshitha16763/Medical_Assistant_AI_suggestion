@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import SearchBar from './components/SearchBar';
 import ModelSelector from './components/ModelSelector';
 import './App.css';
+import NewLineHint from './components/NewLineHint';
 
 function App() {
     const [selectedModel, setSelectedModel] = useState(null);
@@ -26,8 +27,10 @@ function App() {
         <div className="App">
             <h1>AI-Driven Prompt Suggestion</h1>
             <ModelSelector onModelChange={handleModelChange} />
+            <NewLineHint/>
             <SearchBar selectedModel={selectedModel}
             backendUrl={selectedModel ? modelBackendUrls[selectedModel.code] : null} />
+            
         </div>
     );
 }
