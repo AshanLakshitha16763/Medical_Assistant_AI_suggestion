@@ -3,7 +3,7 @@ import axios from 'axios';
 import SuggestionsDropdown from './SuggestionsDropdown';
 import './SearchBar.css';
 
-function SearchBar() {
+function SearchBar({ selectedModel, backendUrl }) {
 
 // state Management - keeping track of the input value, suggestions, dropdown position, selected index, and cursor position 
     const [input, setInput] = useState("");
@@ -99,13 +99,14 @@ useEffect(() => {
 
         const { currentLine, currentLineStart } = getCurrentLineInfo(value, e.target.selectionStart);
 
-        if (currentLine && currentLine.length > 0) {
+        if (currentLine && currentLine.length > 0 && backendUrl) {
             
             // Debounce API calls
             debounceTimeout.current = setTimeout(async () => {
                 try {
-                    const response = await axios.post('http://127.0.0.1:5000/suggest', { 
-                        input: currentLine 
+                    const response = await axios.post(backendUrl, { 
+                        input: currentLine,
+                        model: selectedModel ? selectedModel.code : 'default'
                     });
                     
                     if (response.data.suggestions?.length > 0) {
@@ -127,6 +128,9 @@ useEffect(() => {
             resetSuggestions();
         }
     };
+
+    
+
 // resetSuggestions - Reset the suggestions and ghost text
     const resetSuggestions = () => {
         setSuggestions([]);
@@ -134,6 +138,8 @@ useEffect(() => {
         setSuggestion(input);
         setNavigationGhostText("");
     };
+
+
 // Handling suggestion selection - Insert the selected suggestion into the input value
     const handleSuggestionClick = (suggestion) => {
         const { currentLineStart, currentLine } = getCurrentLineInfo(input, cursorPosition);
@@ -289,16 +295,47 @@ useEffect(() => {
     const adjustTextareaHeight = () => {
         if (!inputRef.current) return;
         inputRef.current.style.height = 'auto';
-    //    const maxHeight = 500; // Increase the maximum height
-        const newHeight = Math.min(inputRef.current.scrollHeight, /*maxHeight*/);
-        inputRef.current.style.height = `${newHeight}px`; // Adjust height based on content
+
+     //   const maxHeight = 500;  Increase the maximum height
+     
+     const newHeight = inputRef.current.scrollHeight;
+     // adding for max height
+     
+     /*const newHeight = Math.min(inputRef.current.scrollHeight, maxHeight);*/
+        inputRef.current.style.height = `${newHeight}px`; // 
+
 
         //Enable scrolling if content exceeds the maximum height
-        if(inputRef.current.scrollHeight /*> maxHeight*/) {
+        /*
+        if(inputRef.current.scrollHeight > maxHeight ) {
             inputRef.current.style.overflowY = "scroll";
         } 
         else {inputRef.current.style.overflowY = "hidden";}
+        */
+       inputRef.current.style.overflowY = "auto";
     };
+
+    // Get the placeholder text based on the selected model
+    const getPlaceholderText = () => {
+        if (!selectedModel) {
+            return "Type something here...";
+        }
+        return `Start typing with ${selectedModel.name}...`;
+    };
+
+    if (!backendUrl) {
+        return (
+            <div style={{ 
+                textAlign: 'center', 
+                color: 'gray', 
+                padding: '20px',
+                border: '1px solid #ddd',
+                borderRadius: '8px'
+            }}>
+                Please select a model to start suggestions
+            </div>
+        );
+    }
 
     return (
         <div className="search-bar-container" ref={containerRef} style={{ position: "relative", display: "inline-flex", alignItems: "center", width: "100%" }}>
@@ -312,7 +349,7 @@ useEffect(() => {
                     updatePositions();
                 }}
                 onScroll={syncScroll}
-                placeholder="Type something here..."
+                placeholder={getPlaceholderText()} // Update placeholder text
                 className="search-bar"
                 id="search-bar"
                 style={{
