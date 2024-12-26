@@ -1,15 +1,13 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import openai
 from openai import OpenAI
-from dotenv import load_dotenv
-
 import os
+#from dotenv import load_dotenv
 
 app = Flask(__name__)
 CORS(app)
 
-load_dotenv()
+#load_dotenv()
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")  
 
@@ -18,8 +16,6 @@ client = OpenAI(api_key=OPENAI_API_KEY)
 def generate_ai_suggestions(input_text, num_suggestions=3):
     try:
         
-
-
         completion = client.chat.completions.create(
             model="gpt-4o-mini",  
             messages=[
@@ -44,6 +40,7 @@ def status_check():
     
     return jsonify({'prompt': "Server is Up and Running..."})
 
+# Endpoint to get suggestions
 @app.route('/suggest', methods=['POST'])
 def suggest():
     data = request.get_json()
