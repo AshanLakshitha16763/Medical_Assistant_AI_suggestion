@@ -1,7 +1,9 @@
 import React from 'react';
 import './NewLineHint.css';
 
-const NewLineHint = () => {
+const NewLineHint = ({ selectedModel }) => {
+    if (!selectedModel) return null;
+    
     return (
         <div className="newline-hint">
             <k_button className="k_button">Shift</k_button>
