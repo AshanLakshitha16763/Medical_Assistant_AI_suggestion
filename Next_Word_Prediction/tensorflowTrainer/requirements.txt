@@ -1,0 +1,4 @@
+transformers==4.33.2   
+datasets==2.15.1       
+torch>=2.0.0           
+tensorflow>=2.12.0
