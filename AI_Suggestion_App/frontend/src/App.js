@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import SearchBar from './components/SearchBar';
 import ModelSelector from './components/ModelSelector';
-import './App.css';
+import '../src/styles/App.css';
 import NewLineHint from './components/NewLineHint';
 
 function App() {

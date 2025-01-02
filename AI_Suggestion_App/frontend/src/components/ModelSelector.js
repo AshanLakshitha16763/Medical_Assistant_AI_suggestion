@@ -3,7 +3,7 @@ import { Dropdown } from 'primereact/dropdown';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
-import './ModelSelector.css'; 
+import '../styles/ModelSelector.css'; 
 
 const ModelSelector = ({ onModelChange }) => {
     const [selectedModel, setSelectedModel] = useState(null);
