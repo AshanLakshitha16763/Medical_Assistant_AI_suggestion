@@ -1,5 +1,5 @@
 import React from 'react';
-import './NewLineHint.css';
+import '../styles/NewLineHint.css';
 
 const NewLineHint = ({ selectedModel }) => {
     if (!selectedModel) return null;

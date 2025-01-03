@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import SuggestionsDropdown from './SuggestionsDropdown';
-import './SearchBar.css';
+import '../styles/SearchBar.css';
 
 function SearchBar({ selectedModel, backendUrl }) {
 
