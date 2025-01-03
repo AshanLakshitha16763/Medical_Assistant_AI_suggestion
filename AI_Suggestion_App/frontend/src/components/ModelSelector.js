@@ -23,10 +23,10 @@ const ModelSelector = ({ onModelChange }) => {
           description: 'GPT-4.0 Model'},
         { name: 'Groq', 
           code: 'Groq',
-          description: 'Groq Model'},
+          description: ' llama3-8b Model'},
         { name: 'Mistral', 
           code: 'Mistral',
-          description: 'Mistral Model'},
+          description: 'pixtral-large-latest Model'},
     ];
 
     const handleModelChange = (e) => {
