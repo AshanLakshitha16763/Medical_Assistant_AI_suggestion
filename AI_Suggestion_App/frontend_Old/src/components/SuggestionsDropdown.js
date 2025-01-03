@@ -1,6 +1,6 @@
 
 import React from 'react';
-import '../styles/SuggestionsDropdown.css';
+import './SuggestionsDropdown.css';
 
 function SuggestionsDropdown({ suggestions, onClick, position, selectedIndex }) {
     return (
