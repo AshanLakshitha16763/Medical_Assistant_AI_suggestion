@@ -3,7 +3,7 @@ import { Dropdown } from 'primereact/dropdown';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
-import './ModelSelector.css'; 
+import '../styles/ModelSelector.css'; 
 
 const ModelSelector = ({ onModelChange }) => {
     const [selectedModel, setSelectedModel] = useState(null);
@@ -23,10 +23,10 @@ const ModelSelector = ({ onModelChange }) => {
           description: 'GPT-4.0 Model'},
         { name: 'Groq', 
           code: 'Groq',
-          description: 'Groq Model'},
+          description: ' llama3-8b Model'},
         { name: 'Mistral', 
           code: 'Mistral',
-          description: 'Mistral Model'},
+          description: 'pixtral-large-latest Model'},
     ];
 
     const handleModelChange = (e) => {

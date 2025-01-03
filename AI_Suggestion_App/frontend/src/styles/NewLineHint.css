@@ -95,7 +95,7 @@
 
     .newline-hint {
         
-        top: 180px;            /* Slightly higher position */
+        top: 190px;            /* Slightly higher position */
         right: 240px;           /* Right side positioning */
         
         transform: translateX(50%);  /* Perfect centering */
