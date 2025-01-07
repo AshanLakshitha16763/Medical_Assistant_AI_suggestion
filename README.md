@@ -75,9 +75,9 @@ In your terminal, press ```ctrl``` + ```c``` keys.
     ```
     cd Medical_Assistant/AI_Suggestion_App/GPT2_1_sug
     ```
-   * MistralAI_mistral-large-latest
+   * MistralAI_pixtral_mistral-large-latest
     ```
-    cd Medical_Assistant/AI_Suggestion_App/MistralAI_mistral-large-latest
+    cd Medical_Assistant/AI_Suggestion_App/MistralAI_pixtral_mistral-large-latest
     ```
    * OpenAI_GPT_3.5_turbo
     ```
@@ -87,14 +87,15 @@ In your terminal, press ```ctrl``` + ```c``` keys.
     ```
     cd Medical_Assistant/AI_Suggestion_App/OpenAI_GPT-4o
     ```
-   * backend_Groq
+   * Groq_1_Suggest_llama3-8b
     ```
-    cd Medical_Assistant/AI_Suggestion_App/backend_Groq
+    cd Medical_Assistant/AI_Suggestion_App/Groq_1_Suggest_llama3-8b
     ```
-   * backend_Groq_3_Suggest
+  * Groq_3_Suggest_llama3-8b
     ```
-    cd Medical_Assistant/AI_Suggestion_App/backend_Groq_3_Suggest
+    cd Medical_Assistant/AI_Suggestion_App/Groq_3_Suggest_llama3-8b
     ```
+  
 
 #### Setting up the Virtual Environment:
  * Refer the documentation to create and activate the virtual environment [here.](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/)
@@ -115,7 +116,7 @@ In your terminal, press ```ctrl``` + ```c``` keys.
     ```
     python medi_backend_gpt2_pipe.py
     ```
-   * MistralAI_mistral-large-latest
+   * MistralAI_pixtral_mistral-large-latest
     ```
     python mistralAI.py
     ```
@@ -127,14 +128,15 @@ In your terminal, press ```ctrl``` + ```c``` keys.
     ```
     python openai_back_gpt-4o.py
     ```
-   * backend_Groq
+   * Groq_1_Suggest_llama3-8b
     ```
     python groq_back.py
     ```
-   * backend_Groq_3_Suggest
+   * Groq_3_Suggest_llama3-8b
     ```
     python groq_back_with_3_suggest.py
     ```
+
     
  * To stop the server:
     In your terminal, press ```ctrl``` + ```c``` keys.
