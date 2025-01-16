@@ -5,7 +5,7 @@ import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import '../styles/ModelSelector.css'; 
 
-const ModelSelector = ({ onModelChange }) => {
+const ModelSelector = ({ onModelChange, isSpinnerVisible }) => {
     const [selectedModel, setSelectedModel] = useState(null);
 
     const models = [
@@ -59,6 +59,7 @@ const ModelSelector = ({ onModelChange }) => {
                 itemTemplate={modelOptionTemplate}
                 placeholder="Select your Model"
                 className="model-dropdown"
+                disabled={isSpinnerVisible}
             />
         </div>
     );
