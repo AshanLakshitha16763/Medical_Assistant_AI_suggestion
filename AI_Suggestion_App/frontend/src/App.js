@@ -33,7 +33,7 @@ function App() {
 
         try {
             // Fetch data from the "/" endpoint
-            const response = await axios.get('https://gpt2apiimg-388091007362.asia-south1.run.app/suggest');
+            const response = await axios.get('https://groqapi3suggestimg-907720686292.asia-south1.run.app/');
             console.log('Response from backend:', response.data);
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -48,14 +48,16 @@ function App() {
             <ModelSelector onModelChange={handleModelChange} isSpinnerVisible={isSpinnerVisible} />
             <NewLineHint selectedModel={selectedModel}/>
 
+            {/*
             {isSpinnerVisible && <div className="spinner">Please wait, while we load the model for you....</div>}
+            */}
             
             <SearchBar selectedModel={selectedModel}
             backendUrl={selectedModel ? modelBackendUrls[selectedModel.code] : null} />
            
+           {isSpinnerVisible &&
            <div class="spinner"> 
-           
-            <Blocks
+                <Blocks
                 height="80"
                 width="80"
                 color="#4fa94d"
@@ -63,10 +65,11 @@ function App() {
                 wrapperStyle={{}}
                 wrapperClass="blocks-wrapper"
                 visible={true} />
-
-                    <div>Please wait, while we load the model</div>   
+                
+                <div>Please wait, while we load the model</div>   
+                
             </div>
-
+            }
 
 
         </div>
