@@ -3,6 +3,7 @@ import SearchBar from './components/SearchBar';
 import ModelSelector from './components/ModelSelector';
 import '../src/styles/App.css';
 import NewLineHint from './components/NewLineHint';
+import {Blocks} from 'react-loader-spinner';
 
 function App() {
     const [selectedModel, setSelectedModel] = useState(null);
@@ -32,7 +33,23 @@ function App() {
             <NewLineHint selectedModel={selectedModel}/>
             <SearchBar selectedModel={selectedModel}
             backendUrl={selectedModel ? modelBackendUrls[selectedModel.code] : null} />
-            
+           
+           <div class="spinner"> 
+           
+            <Blocks
+                height="80"
+                width="80"
+                color="#4fa94d"
+                ariaLabel="blocks-loading"
+                wrapperStyle={{}}
+                wrapperClass="blocks-wrapper"
+                visible={true} />
+
+                    <div>Please wait, while we load the model</div>   
+            </div>
+
+
+
         </div>
     );
 }
