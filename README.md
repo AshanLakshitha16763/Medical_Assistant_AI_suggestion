@@ -1,6 +1,8 @@
 # Medical_Assistant
 Medical_Assistant is an innovative AI-powered solution designed to simplify and enhance medical practice. With advanced text-generation capabilities, it assists doctors by efficiently compiling patient symptom lists and drafting accurate prescriptions.
 
+## You can find our reviewes on AI models that we use in [Model review document here.](https://github.com/Bistec-SUSL-2024/Medical_Assistant/releases/download/v1.0.0/Medical_assistant.Model.Review.1.pdf)
+
 ## Testing deployed Application
 
 ### **Check our deployed application [here.](https://medical-assistant-deploy.vercel.app/)**
@@ -20,10 +22,10 @@ Medical_Assistant is an innovative AI-powered solution designed to simplify and 
 
 ### Our deployments
 * The deployed backend with [GPT2.](https://medicalback-34822786368.asia-south1.run.app/)
-* The deployed backend with [BioGPT, llama3-8b Model.](https://biosuggimg-1081715976745.asia-south1.run.app)
-* The deployed backend for one suggestion with [Groq.](https://groq1newimg-566299158369.us-central1.run.app/)
+* The deployed backend with [BioGPT.](https://biosuggimg-1081715976745.asia-south1.run.app)
+* The deployed backend for one suggestion with [Groq,llama3-8b Model.](https://groq1newimg-566299158369.us-central1.run.app/)
 * The deployed backend with [GPT-3.5.](https://gpt3-5img-588828373957.asia-south1.run.app )
-* The deployed backend with [GPT 4.o.](https://backendapiimg-311437687915.us-central1.run.app )
+* The deployed backend with [GPT-4o.](https://backendapiimg-311437687915.us-central1.run.app )
 * The deployed backend with [Mistral, pixtral-large-latest Model.](https://mistralaiapi3suggestimg-770852879163.asia-south1.run.app)
 
 
