@@ -6,9 +6,9 @@ const NewLineHint = ({ selectedModel }) => {
     
     return (
         <div className="newline-hint">
-            <k_button className="k_button">Shift</k_button>
+            <div className="k_button">Shift</div>
                 <span>+</span>
-                <k_button className="k_button">Enter</k_button>
+                <div className="k_button">Enter</div>
             <div className="key-combo">
                 <span>Get New Line</span>
             </div>
