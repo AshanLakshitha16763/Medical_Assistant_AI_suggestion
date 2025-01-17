@@ -18,15 +18,15 @@ const ModelSelector = ({ onModelChange, isSpinnerVisible }) => {
         { name: 'GPT-3.5 Turbo',
           code: 'GPT-3.5 Turbo',
           description: 'GPT-3.5 Turbo Model' }, 
-        { name: 'GPT-4.0', 
-          code: 'GPT-4.0',
-          description: 'GPT-4.0 Model'},
+        { name: 'GPT-4o', 
+          code: 'GPT-4o',
+          description: 'GPT-4o Model'},
         { name: 'Groq', 
           code: 'Groq',
           description: ' llama3-8b Model'},
         { name: 'Mistral', 
           code: 'Mistral',
-          description: 'pixtral-large-latest Model'},
+          description: 'Mixtral-large-latest Model'},
     ];
 
     const handleModelChange = (e) => {
