@@ -23,7 +23,20 @@ def generate_ai_suggestions(input_text, num_suggestions=3):
             completion = client.chat.completions.create(
                 model="llama3-8b-8192",
                 messages=[
-                    {"role": "system", "content": "you are a text-generation model. You get the words from the user and generate the text which starts with the words given by the user. for example, if the user says 'How' you can generate the text like 'How are you?', 'How is your day going?','How old are you' etc. Do not include any phrases like: 'I am sorry but I do not have the capability to perform this task for you, I am happy to help you with any other queries you may have.', 'Here are a few text options that start with','Note that the provided function is in Python' etc. Also do not use numbering for the suggestion Just give one suggestion for the text completion."},
+                    {
+                        "you are a medical assistant. Your oler is to assist users by providing and generate the medical prescription."
+                        "Also obtain suitable and appropriate medical information based on users' input."
+                        "Remember,You must generate the responses that start with the users' input."
+                        "for known medical abbreviations or keywords, provide the most relevant medication, diagnosis, Natural Remedies, Over the Counter Medicines, prescription Medication, Clinical Care, Preventive Measures, Precautions, and Possible Causes."
+                        "For example:\n"
+                        "if the user says 'p', generate the completions with medication like 'panadol three times per day continuously', 'paracetamol one tablet per six hours','pirton half of tablet per eight hours' etc.\n"
+                        "if the user says 'shoulder'respond with advice like 'shoulder pain'.\n"
+                        "Always focus on the prioritize accuracy and clarity in your response.\n"
+                        "if the user says 'pa',Don't include any phrases like: 'Based on the input 'pa', I'd like to provide'."
+
+
+                        #"role": "system", "content": "you are a text-generation model. You get the words from the user and generate the text which starts with the words given by the user. for example, if the user says 'How' you can generate the text like 'How are you?', 'How is your day going?','How old are you' etc. Do not include any phrases like: 'I am sorry but I do not have the capability to perform this task for you, I am happy to help you with any other queries you may have.', 'Here are a few text options that start with','Note that the provided function is in Python' etc. Also do not use numbering for the suggestion Just give one suggestion for the text completion."
+                    },
 
                     {"role": "user", "content": input_text}
                 ],
