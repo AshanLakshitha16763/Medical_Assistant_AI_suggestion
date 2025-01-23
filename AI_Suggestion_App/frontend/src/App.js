@@ -55,7 +55,7 @@ function App() {
 
     return (
         <div className="App">
-            <h1>AI-Driven Prompt Suggestion</h1>
+            <h1>Medical Prescription Writing Assistant</h1>
             <ModelSelector onModelChange={handleModelChange} isSpinnerVisible={isSpinnerVisible} />
             
             {!isSpinnerVisible &&
