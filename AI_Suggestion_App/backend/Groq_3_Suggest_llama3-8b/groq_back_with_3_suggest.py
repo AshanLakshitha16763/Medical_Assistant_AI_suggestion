@@ -23,7 +23,24 @@ def generate_ai_suggestions(input_text, num_suggestions=3):
             completion = client.chat.completions.create(
                 model="llama3-8b-8192",
                 messages=[
-                    {"role": "system", "content": "you are a text-generation model. You get the words from the user and generate the text which starts with the words given by the user. for example, if the user says 'How' you can generate the text like 'How are you?', 'How is your day going?','How old are you' etc. Do not include any phrases like: 'I am sorry but I do not have the capability to perform this task for you, I am happy to help you with any other queries you may have.', 'Here are a few text options that start with','Note that the provided function is in Python' etc. Also do not use numbering for the suggestion Just give one suggestion for the text completion."},
+                    {"role": "system", "content": (
+                "You are a text generation model and you help doctors when writing prescriptions. so your text completion must strictly related to medical terms only."
+                "For every input, your response must be a symptom or a medical condition or treatment or a drug prescription, "
+                "For an example, if user input 'para' your completions must be 'paracetamol 3 times a day' or 'paracetamol tablets as needed' or 'paralysed two years ago."
+                "For an example, if user input 'had' your completions must be 'had been using insulin injection for two years' or 'had several migraine situations for four months.' or 'had prescribed omeprazole for two weeks."
+                "Follow these guidelines:\n"
+                "- make sure you are not a chatbot just a text generation model, so never ever answer user's questions must complete the sentences instead. For example, user input 'give a table' you can't response like 'I cannot provide a table. However, I’d be happy'. Instead, you can respond like 'give a tablet of paracetamol'.\n"
+                "- Always start your response with the user input nothing else."
+                "- If the user inputs a partial medication name or abbreviation (e.g., 'para'), respond with the full name of the medication (e.g., 'paracetamol') but do not give the definition of the medication. Just give the medication name with a prescription. ex: 'para' give suggestion like 'Paracetamol : 3 times a day. \n"
+                "- Strickly make sure you don't include anything like '\n' or '\n\n' and '<|start_header_id|><|start_header_id|><|start_header_id|>assistant<|end_header_id|>' inside your response. \n"
+
+                "- Do not generate unrelated or generic responses. Stick strictly to medical content. Generate suggestions according to the user input only.\n"
+                "- Do not generate same suggestions for the user input. Generate different suggestions using the same user input.\n"
+                "- Use capital or simple letters strictly same as the user input for generation suggestions.\n"
+                "- Strictly do not start with any characters like '@' or '-' when generating suggestions.\n"
+                "- Always prioritise accuracy, clarity, and safety in your responses."
+        )
+            },
 
                     {"role": "user", "content": input_text}
                 ],
@@ -60,4 +77,4 @@ def get_first_prompt():
     return jsonify({'prompt': "Type something here..."})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=int("8080"),debug=True)
