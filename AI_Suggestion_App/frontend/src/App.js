@@ -5,6 +5,7 @@ import '../src/styles/App.css';
 import NewLineHint from './components/NewLineHint';
 import {Blocks} from 'react-loader-spinner';
 import axios from 'axios';
+import Note from './components/Note';
 
 function App() {
     const [selectedModel, setSelectedModel] = useState(null);
@@ -82,7 +83,8 @@ function App() {
                 
             </div>
             }
-            <div className="note">
+
+            {/*<div className="note">
             <h2>Note:</h2>
             <p>
                 <ul>
@@ -90,8 +92,9 @@ function App() {
                 <li>So, suggestion will be mostly related to medical terms.</li>
                 </ul>
             </p>
-            </div>
-
+            </div> */}
+            
+            {!isSpinnerVisible && <Note/> }
         </div>
     );
 }
