@@ -48,7 +48,6 @@ const ModelSelector = ({ onModelChange, isSpinnerVisible }) => {
 
     return (
         <div className="model-selector">
-            <label htmlFor="model-dropdown"> </label>
             <Dropdown
                 id="model-dropdown"
                 value={selectedModel}
