@@ -131,7 +131,7 @@
     .newline-hint {
         
         top: 190px;            /* Slightly higher position */
-        right: 240px;           /* Right side positioning */
+        right: 333px;           /* Right side positioning */
         
         transform: translateX(50%);  /* Perfect centering */
         font-size: 15px;        /* Smaller text */
