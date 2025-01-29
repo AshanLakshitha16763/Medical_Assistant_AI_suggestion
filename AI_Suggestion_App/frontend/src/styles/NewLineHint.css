@@ -33,8 +33,8 @@
 @media screen and (max-width: 355px) {
     .newline-hint {
         
-        top: px;            /* Slightly higher position */
-        right: 120px;           /* Right side positioning */
+        top: 170px;            /* Slightly higher position */
+        right: 89px;           /* Right side positioning */
         
         transform: translateX(50%);  /* Perfect centering */
         font-size: 10px;        /* Smaller text */
@@ -50,8 +50,8 @@
 @media screen and (min-width: 356px) and (max-width:456px) {
     .newline-hint {
         
-        top: 140px;            /* Slightly higher position */
-        right: 125px;           /* Right side positioning */
+        top: 150px;            /* Slightly higher position */
+        right: 90px;           /* Right side positioning */
         
         transform: translateX(50%);  /* Perfect centering */
         font-size: 10px;        /* Smaller text */
