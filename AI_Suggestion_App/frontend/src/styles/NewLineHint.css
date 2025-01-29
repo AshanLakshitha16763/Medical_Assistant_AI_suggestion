@@ -98,7 +98,7 @@
     .newline-hint {
         
         top: 150px;            /* Slightly higher position */
-        right:100px;          /* Right side positioning */
+        right:123px;          /* Right side positioning */
         
         transform: translateX(50%);  /* Perfect centering */
         font-size: 10px;        /* Smaller text */
@@ -115,7 +115,7 @@
     .newline-hint {
         
         top: 180px;            /* Slightly higher position */
-        right: 170px;           /* Right side positioning */
+        right: 178px;           /* Right side positioning */
         
         transform: translateX(50%);  /* Perfect centering */
         font-size: 15px;        /* Smaller text */
