@@ -24,8 +24,7 @@
   
   .note-item {
     display: flex;
-    align-items: flex-start;
-    margin-left: 50px; 
+    text-align: left;
     margin-bottom: 12px;
   }
   
@@ -47,21 +46,6 @@
     font-size: 16px;
     line-height: 1.5;
     color: #000;
-    align-items: center;
   }
   
-  /* Responsive styles */
-  @media screen and (max-width: 768px) {
-    .note-container {
-      margin: 24px 16px;
-      padding: 16px;
-    }
-    
-    .note-title {
-      font-size: 18px;
-    }
-    
-    .note-text {
-      font-size: 14px;
-    }
-  }
+  
