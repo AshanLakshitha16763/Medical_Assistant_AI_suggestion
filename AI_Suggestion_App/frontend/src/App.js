@@ -15,10 +15,10 @@ function App() {
     const modelBackendUrls = {
         'GPT2':'https://gpt2apiimg-388091007362.asia-south1.run.app/suggest',
         'BIOGPT':'https://biosuggimg-1081715976745.asia-south1.run.app/suggest',
-        'GPT-3.5 Turbo':'https://gpt3-5img-588828373957.asia-south1.run.app/suggest',
-        'GPT-4o':'https://backendapiimg-311437687915.us-central1.run.app/suggest',
-        'Groq':'https://groqapi3suggestimg-907720686292.asia-south1.run.app/suggest',
-        'Mistral':'https://mistralaiapi3suggestimg-770852879163.asia-south1.run.app/suggest'
+        'GPT-3.5 Turbo':'https://gpt3-5sug3v1img-310190366499.asia-south1.run.app/suggest',
+        'GPT-4o':'https://gpt4opv1img-416355045963.asia-south1.run.app/suggest',
+        'Groq':'https://groqllama3pv1img-211290179414.asia-south1.run.app/suggest',
+        'Mistral':'https://mistralpv1img-767801539703.us-central1.run.app/suggest'
         
     };
 
@@ -26,10 +26,10 @@ function App() {
     const modelBaseUrls = {
         'GPT2': 'https://gpt2apiimg-388091007362.asia-south1.run.app',
         'BIOGPT': 'https://biosuggimg-1081715976745.asia-south1.run.app',
-        'GPT-3.5 Turbo': 'https://gpt3-5img-588828373957.asia-south1.run.app',
-        'GPT-4o': 'https://backendapiimg-311437687915.us-central1.run.app',
-        'Groq': 'https://groqapi3suggestimg-907720686292.asia-south1.run.app',
-        'Mistral': 'https://mistralaiapi3suggestimg-770852879163.asia-south1.run.app',
+        'GPT-3.5 Turbo': 'https://gpt3-5sug3v1img-310190366499.asia-south1.run.app',
+        'GPT-4o': 'https://gpt4opv1img-416355045963.asia-south1.run.app',
+        'Groq': 'https://groqllama3pv1img-211290179414.asia-south1.run.app',
+        'Mistral': 'https://mistralpv1img-767801539703.us-central1.run.app',
     };
 
     const handleModelChange = async (model) => {
