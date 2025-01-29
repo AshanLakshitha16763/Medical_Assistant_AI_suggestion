@@ -5,29 +5,33 @@
 
 }
 
-.note {
-  margin: 20px auto;
-  padding: 50px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #eee9e9;
-  width: 75%;
-  
-}
+/*
+  .note {
+    margin: 20px auto;
+    padding: 50px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #eee9e9;
+    width: 75%;
+    
+  }
 
-.note h2 {
-  margin-top: 0;
-  text-align: left;
-}
+  .note h2 {
+    margin-top: 0;
+    text-align: left;
+  }
 
-.note p {
-  text-align: left; 
-  margin-left: 20px; /* Indent the bullet points */
-}
+  .note p {
+    text-align: left; 
+    margin-left: 20px; 
+  }
+  .note p li {
+    margin-bottom: 5px; 
+    // note is
+  } 
+*/
 
-.note p li {
-  margin-bottom: 5px; /* Add spacing between bullet points */
-}
+
 
 /* Mobile devices (up to 480px) */
 @media screen and (max-width: 480px) {
