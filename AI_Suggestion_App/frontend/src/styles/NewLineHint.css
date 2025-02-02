@@ -1,21 +1,21 @@
 .newline-hint {
-    position: absolute;
     display: flex;
-    align-items: center;
     gap: 5px;
-    padding: 8px 12px;
-    background-color: #F8F9FC;
+    background-color: #7d859d;
     border-radius: 8px;
     font-size: 14px;
     color: #4B5563;
-
+    top: 50%; 
+    right: 20px; 
+    align-self: flex-end;
+    padding: 4px 8px;
     
-
 }
 
 .key-combo {
     display: flex;
     align-items: center;
+    font-family: monospace;
     gap: 4px;
 }
 
@@ -27,117 +27,4 @@
     box-shadow: 0 0 5px rgba(49, 49, 49, 0.1);
     font-family: monospace;
     border : 1px solid #1b212e;
-}
-/*----------------------------------------------Responsive Design----------------------------------------------*/
-
-@media screen and (max-width: 355px) {
-    .newline-hint {
-        
-        top: 170px;            /* Slightly higher position */
-        right: 89px;           /* Right side positioning */
-        
-        transform: translateX(50%);  /* Perfect centering */
-        font-size: 10px;        /* Smaller text */
-    }
-    .k_button{
-        padding: 3px 4px;
-        font-size: 10px;
-    }
-
-}
-
-/* For phones (screens 356px up to 480px wide) */
-@media screen and (min-width: 356px) and (max-width:456px) {
-    .newline-hint {
-        
-        top: 150px;            /* Slightly higher position */
-        right: 90px;           /* Right side positioning */
-        
-        transform: translateX(50%);  /* Perfect centering */
-        font-size: 10px;        /* Smaller text */
-    }
-    .k_button{
-        padding: 3px 4px;
-        font-size: 10px;
-    }
-    
-}
-@media screen and (min-width: 457px) and (max-width:480px) {
-    .newline-hint {
-        
-        top: 120px;            /* Slightly higher position */
-        right:100px;          /* Right side positioning */
-        
-        transform: translateX(50%);  /* Perfect centering */
-        font-size: 10px;        /* Smaller text */
-    }
-    .k_button{
-        padding: 3px 4px;
-        font-size: 10px;
-    }
-    
-}
-
-@media screen and (min-width: 481px) and (max-width:540px) {
-    .newline-hint {
-        
-        top: 180px;            /* Slightly higher position */
-        right:100px;          /* Right side positioning */
-        
-        transform: translateX(50%);  /* Perfect centering */
-        font-size: 10px;        /* Smaller text */
-    }
-    .k_button{
-        padding: 3px 4px;
-        font-size: 10px;
-    }
-    
-}
-
-@media screen and (min-width: 541px) and (max-width:768px) {
-    .newline-hint {
-        
-        top: 150px;            /* Slightly higher position */
-        right:123px;          /* Right side positioning */
-        
-        transform: translateX(50%);  /* Perfect centering */
-        font-size: 10px;        /* Smaller text */
-    }
-    .k_button{
-        padding: 3px 4px;
-        font-size: 10px;
-    }
-    
-}
-
-/* For laptops/desktops (769px to 1199px) */
-@media screen and (min-width: 769px) and (max-width: 1199px) {
-    .newline-hint {
-        
-        top: 180px;            /* Slightly higher position */
-        right: 178px;           /* Right side positioning */
-        
-        transform: translateX(50%);  /* Perfect centering */
-        font-size: 15px;        /* Smaller text */
-    }
-    .k_button{
-        padding: 3px 4px;
-        font-size: 14px;
-    }
-}
-/* For laptops/desktops (1200px and above) */
-@media screen and (min-width: 1200px) {
-
-    .newline-hint {
-        
-        top: 190px;            /* Slightly higher position */
-        right: 333px;           /* Right side positioning */
-        
-        transform: translateX(50%);  /* Perfect centering */
-        font-size: 15px;        /* Smaller text */
-    }
-    .k_button{
-        padding: 3px 4px;
-        font-size: 14px;
-    }
 }

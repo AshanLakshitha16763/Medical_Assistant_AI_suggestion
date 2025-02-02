@@ -1,24 +1,24 @@
 .model-selector {
     display: flex;
     justify-content: flex-end;
-    width: 100%;
-    margin-bottom: 15px;
-    padding-right: 100px;
-    align-items: center;
-    gap: 10px;
+    max-width: 100%;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    align-self: flex-end;
+    
 }
 
 /* Dropdown styles overrides */
 .p-dropdown {
-    width: 250px !important;
-    background: #ffffff;
-    border: 1px solid #ced4da;
+    width: 200px;
+    background: #e8e5e5e9;
+    border: 1px solid #0c076c;
     border-radius: 6px;
     transition: all 0.2s ease;
 }
 
 .p-dropdown:hover {
-    border-color: #007bff;
+    border: 1px solid #2323db;
 }
 
 .p-dropdown:focus {
@@ -26,14 +26,7 @@
     border-color: #007bff;
 }
 
-/* Dropdown item styles */
-.p-dropdown-item {
-    padding: 10px 15px;
-}
 
-.p-dropdown-item:hover {
-    background-color: #f8f9fa;
-}
 
 /* Model option template styles */
 .model-option {
@@ -43,7 +36,7 @@
 .model-option-name {
     font-size: 14px;
     color: #333;
-    margin-bottom: 4px;
+    margin-bottom: 5px;
 }
 
 .model-option-description {
@@ -51,54 +44,5 @@
     color: #6c757d;
 }
 
-/* Mobile devices (up to 480px) */
-@media screen and (max-width: 480px) {
-    .model-selector {
-        padding-right: 12px;
-        justify-content: center;
-    }
-    
-    .p-dropdown {
-        width: 190px !important;
-    }
-
-    .model-option-name {
-        font-size: 13px;
-    }
-
-    .model-option-description {
-        font-size:11px;
-    }
-}
-
-/* Tablets (481px to 768px) */
-@media screen and (min-width: 481px) and (max-width: 768px) {
-    .model-selector {
-        padding-right: 40px;
-        justify-content: flex-end;
-    }
-    
-    .p-dropdown {
-        width: 200px !important;
-    }
-}
 
 
-/* Desktop (1200px and above) */
-@media screen and (min-width: 1200px) {
-    .model-selector {
-        padding-right: 12px;
-    }
-    
-    .p-dropdown {
-        width: 200px !important;
-    }
-
-    .model-option-name {
-        font-size: 15px;
-    }
-
-    .model-option-description {
-        font-size: 14px;
-    }
-}
