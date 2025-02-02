@@ -1,17 +1,14 @@
 .search-bar-container {
     position:relative;
     width: 100%;
-    max-width: 900px ;
     margin: 0px;
     border: 1px solid rgb(255, 255, 255);
     isolation:isolate;
-    margin-top: 70px;
+  
     
 }
 
 .search-bar {
-
-
     width: 100%;
     min-height: 250px;
     padding: 15px;
@@ -19,9 +16,7 @@
     border-radius: 15px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     resize: none;
-    overflow-y: auto;
-    /* scrollbar-width: thin;       1st scrool bar inside of searchbar 
-    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;*/    
+    overflow-y: auto; 
     transition: height 0.2s ease;
     line-height: 1.5;
     position: relative;
@@ -57,7 +52,7 @@
 
 .ghost-text-overlay{
     position: absolute;
-    max-width: calc(100% - 20px);
+    max-width: calc(100% - 0px);
     text-align: left;
     color: #ccc;
     margin-top: 0px !important;
@@ -68,67 +63,4 @@
     will-change: transform;
     pointer-events: none;
 
-}
-
-@media screen and (max-width: 355px) {
-    .search-bar-container {
-        margin: 15px 0px;
-        margin-top: 40px;
-       
-        
-    }
-    
-    .search-bar {
-        margin-top: 20px;
-        min-height: 180px;
-        padding: 12px;
-        font-size: 14px;
-        border-radius: 12px;
-    }
-}
-
-@media screen and (min-width: 356px) and (max-width:480px) {
-    .search-bar-container{
-        margin: 15px 10px;
-        margin-top: 40px;
-    }
-}
-
-/* Mobile devices (up to 480px) */
-@media screen and (max-width: 480px) {
-    .search-bar-container {
-        margin: 15px 10px;
-        margin-top: 40px;
-    }
-    
-    .search-bar {
-        min-height: 180px;
-        padding: 12px;
-        font-size: 14px;
-        border-radius: 12px;
-    }
-}
-
-/* Tablets (481px to 768px) */
-@media screen and (min-width: 481px) and (max-width: 768px) {
-    .search-bar-container {
-        margin: 20px;
-        margin-top: 50px;
-        max-width: 700px;
-    }
-    
-    .search-bar {
-        min-height: 200px;
-        padding: 14px;
-        font-size: 15px;
-    }
-}
-
-/* Desktop (1200px and above) */
-@media screen and (min-width: 1200px) {
-    .search-bar-container {
-        max-width: 1000px;
-        margin: 40px auto;
-        margin-top: 70px;
-    }
 }

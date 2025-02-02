@@ -330,7 +330,8 @@ useEffect(() => {
                 color: 'gray', 
                 padding: '20px',
                 border: '1px solid #ddd',
-                borderRadius: '8px'
+                borderRadius: '8px',
+                width: '100%',
             }}>
                 Please select a model to start suggestions
             </div>
@@ -338,7 +339,7 @@ useEffect(() => {
     }
 
     return (
-        <div className="search-bar-container" ref={containerRef} style={{ position: "relative", display: "inline-flex", alignItems: "center", width: "100%" }}>
+        <div className="search-bar-container" ref={containerRef} style={{ position: "relative", display: "inline-flex", alignItems: "center", width: "-webkit-fill-available" }}>
             <textarea
                 ref={inputRef}
                 value={input}
