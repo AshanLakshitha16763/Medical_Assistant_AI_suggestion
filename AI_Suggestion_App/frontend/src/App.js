@@ -6,6 +6,7 @@ import NewLineHint from "./components/NewLineHint";
 import { Blocks } from "react-loader-spinner";
 import axios from "axios";
 import Note from "./components/Note";
+import Footer from "./components/Footer";
 
 function App() {
     const [selectedModel, setSelectedModel] = useState(null);
@@ -74,9 +75,11 @@ function App() {
                         />
                     </div>
                 }
-                    {!isSpinnerVisible && <Note />}
+                    {!isSpinnerVisible && <Note /> }
+                    
             </div>
-
+                    {!isSpinnerVisible && <Footer/>}
+                    
             {isSpinnerVisible && (
                 <div className="spinner">
                     <Blocks

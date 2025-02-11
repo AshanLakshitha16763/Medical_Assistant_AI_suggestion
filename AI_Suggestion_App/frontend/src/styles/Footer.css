@@ -1,0 +1,36 @@
+.Footer{
+    margin-top: 200px;
+    width: 100%;
+    max-width: 1440px;
+    height: 150px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 30px;
+    margin-inline: auto; 
+    background: #3d3b3be9;
+
+
+}
+
+.Footer-Text{
+    margin-top: 60px;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content:center; 
+    align-items: center;
+    gap: 30px;
+    color: #e6e3e3;
+}
+
+
+.Footer-github{
+    margin-top: 60px;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: #e6e3e3;
+}
