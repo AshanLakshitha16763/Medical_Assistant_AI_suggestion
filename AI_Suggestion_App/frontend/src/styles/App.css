@@ -2,7 +2,6 @@
   text-align: center;
   font-family: Arial, sans-serif;
   margin-top: 40px;
-  padding: 0 20px;
   width: 100vw;
 }
 
@@ -10,14 +9,15 @@
   text-align: center;
   font-size: 32px;
   margin-bottom: 20px;
+  color: white;
 }
 
 .spinner {
   position: fixed;
-  top: 30%;
+  top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 24px;
-  color: #333;
+  color: #a39e9e;
   z-index: 1000;
 }

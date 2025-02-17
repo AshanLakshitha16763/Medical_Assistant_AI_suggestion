@@ -15,8 +15,9 @@
 .key-combo {
     display: flex;
     align-items: center;
-    font-family: monospace;
+    color: #000;
     gap: 4px;
+    
 }
 
 .k_button {

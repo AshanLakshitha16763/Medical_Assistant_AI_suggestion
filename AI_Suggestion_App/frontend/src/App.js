@@ -59,10 +59,12 @@ function App() {
         <div className="App">
             <h1> AI Assistant for Writing Medical Prescriptions</h1>
             <div className="search-bar-outercontainer">
-                <ModelSelector
-                    onModelChange={handleModelChange}
-                    isSpinnerVisible={isSpinnerVisible}
-                />
+                {/* {!isSpinnerVisible &&  */}
+                    <ModelSelector
+                        onModelChange={handleModelChange}
+                        isSpinnerVisible={isSpinnerVisible}
+                    />
+                {/* } */}
 
                 {!isSpinnerVisible && 
                     <div className="search-bar-container-wrapper">
@@ -79,7 +81,7 @@ function App() {
                     
             </div>
                     {!isSpinnerVisible && <Footer/>}
-                    
+
             {isSpinnerVisible && (
                 <div className="spinner">
                     <Blocks

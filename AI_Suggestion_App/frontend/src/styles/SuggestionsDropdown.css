@@ -1,9 +1,7 @@
 .suggestions-dropdown {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #fff;
+    background-color: #d7f1f475;
     position: absolute;
-    margin-top: -200px;
+    margin-top: -225px;
     margin-inline-start: 18px;
     max-height: 200px;
     overflow-y: auto;

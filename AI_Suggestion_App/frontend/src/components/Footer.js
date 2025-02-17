@@ -1,5 +1,7 @@
 import React from 'react';
 import '../styles/Footer.css'; 
+import { FaGithub } from "react-icons/fa";
+import { IconContext } from "react-icons";
 
 const Footer = () => {
     return (
@@ -19,9 +21,18 @@ const Footer = () => {
                     </p>
 
                 </div>
-                <div className='Footer-github'>
-                    <p>Contact Us </p>
-                </div>
+                <a href="https://github.com/Bistec-SUSL-2024/Medical_Assistant"> 
+                    <div className='Footer-github'>
+                            <p> 
+                                <IconContext.Provider value={{ className: "Footer-github" }}>
+                                    <div>
+                                        <FaGithub /> 
+                                    </div>
+                                </IconContext.Provider>
+                        
+                            </p>
+                        </div>
+                </a>
 
             </div>
     );
