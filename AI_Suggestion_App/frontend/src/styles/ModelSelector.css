@@ -4,13 +4,12 @@
     max-width: 100%;
     margin-top: 40px;
     margin-bottom: 20px;
-    align-self: flex-end;
-    
+    align-self: flex-end; 
 }
 
 /* Dropdown styles overrides */
 .p-dropdown {
-    width: 200px;
+    width:180px;
     background: #e8e5e5e9;
     border: 1px solid #0c076c;
     border-radius: 6px;
@@ -25,9 +24,6 @@
     box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
     border-color: #007bff;
 }
-
-
-
 /* Model option template styles */
 .model-option {
     padding: 8px 0;

@@ -327,7 +327,7 @@ useEffect(() => {
         return (
             <div style={{ 
                 textAlign: 'center', 
-                color: 'gray', 
+                color: '#ffffff', 
                 padding: '20px',
                 border: '1px solid #ddd',
                 borderRadius: '8px',

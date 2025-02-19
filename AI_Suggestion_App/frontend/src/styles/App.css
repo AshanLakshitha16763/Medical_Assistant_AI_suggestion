@@ -18,6 +18,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 24px;
-  color: #a39e9e;
+  font-weight: bold;
+  color: #ebebeb;
   z-index: 1000;
 }

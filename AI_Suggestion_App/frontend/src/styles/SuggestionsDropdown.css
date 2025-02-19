@@ -1,5 +1,5 @@
 .suggestions-dropdown {
-    background-color: #d7f1f475;
+    background-color: #f0f4f5f9;
     position: absolute;
     margin-top: -225px;
     margin-inline-start: 18px;
@@ -19,6 +19,7 @@
 
 .suggestion-item:hover {
     background-color: #f0f0f0;
+    border: 1px solid #d9d9d9;
 }
 
 .suggestion-item.selected {

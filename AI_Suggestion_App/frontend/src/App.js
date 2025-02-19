@@ -82,7 +82,7 @@ function App() {
             </div>
                     {!isSpinnerVisible && <Footer/>}
 
-            {isSpinnerVisible && (
+           {isSpinnerVisible && ( 
                 <div className="spinner">
                     <Blocks
                         height="80"
@@ -98,9 +98,7 @@ function App() {
                         Please wait, {[selectedModel.code]} Model's Backend is Loading...
                     </div>
                 </div>
-            )}
-
-           
+             )}
         </div>
     );
 }
