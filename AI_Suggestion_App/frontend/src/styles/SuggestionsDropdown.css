@@ -1,9 +1,7 @@
 .suggestions-dropdown {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #fff;
+    background-color: #f0f4f5f9;
     position: absolute;
-    margin-top: -200px;
+    margin-top: -225px;
     margin-inline-start: 18px;
     max-height: 200px;
     overflow-y: auto;
@@ -21,6 +19,7 @@
 
 .suggestion-item:hover {
     background-color: #f0f0f0;
+    border: 1px solid #d9d9d9;
 }
 
 .suggestion-item.selected {
