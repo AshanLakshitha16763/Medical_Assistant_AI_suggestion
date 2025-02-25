@@ -11,10 +11,10 @@ const ModelSelector = ({ onModelChange, isSpinnerVisible }) => {
     const models = [
         { name: 'GPT2',
           code: 'GPT2',
-          description: 'General Purpose GPT Model' },
+          description: 'GPT Model' },
         { name: 'BioGPT', 
           code: 'BIOGPT',
-          description:'Specialized Biomedical GPT Model'},
+          description:'Biomedical GPT Model'},
         { name: 'GPT-3.5 Turbo',
           code: 'GPT-3.5 Turbo',
           description: 'GPT-3.5 Turbo Model' }, 
@@ -26,7 +26,7 @@ const ModelSelector = ({ onModelChange, isSpinnerVisible }) => {
           description: ' llama3-8b Model'},
         { name: 'Mistral', 
           code: 'Mistral',
-          description: 'Mixtral-large-latest Model'},
+          description: 'Mixtral-large Model'},
     ];
 
     const handleModelChange = (e) => {
@@ -48,7 +48,6 @@ const ModelSelector = ({ onModelChange, isSpinnerVisible }) => {
 
     return (
         <div className="model-selector">
-            <label htmlFor="model-dropdown"> </label>
             <Dropdown
                 id="model-dropdown"
                 value={selectedModel}
