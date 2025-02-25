@@ -2,91 +2,23 @@
   text-align: center;
   font-family: Arial, sans-serif;
   margin-top: 40px;
-
+  width: 100vw;
 }
 
-/*
-  .note {
-    margin: 20px auto;
-    padding: 50px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #eee9e9;
-    width: 75%;
-    
-  }
-
-  .note h2 {
-    margin-top: 0;
-    text-align: left;
-  }
-
-  .note p {
-    text-align: left; 
-    margin-left: 20px; 
-  }
-  .note p li {
-    margin-bottom: 5px; 
-    // note is
-  } 
-*/
-
-
-
-/* Mobile devices (up to 480px) */
-@media screen and (max-width: 480px) {
-  .App {
-    margin-top: 20px;
-    padding: 0 10px;
-  }
-  
-  .App h1 {
-    font-size: 24px;
-    margin-bottom: 15px;
-  }
-}
-
-/* Tablets (481px to 768px) */
-@media screen and (min-width: 481px) and (max-width: 768px) {
-  .App {
-    margin-top: 30px;
-    padding: 0px 15px;
-  }
-  
-  .App h1 {
-    font-size: 28px;
-    margin-bottom: 20px;
-  }
-}
-
-/* Desktop (1200px and above) */
-@media screen and (min-width: 1200px) {
-  .App {
-    margin-top: 50px;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .spinner {
-    position: fixed;
-    align-items: center;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 24px;
-    z-index: 1000;
-  }
+.App h1 {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: white;
 }
 
 .spinner {
   position: fixed;
-  top: 50%;
+  top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 24px;
-  color: #333;
+  font-weight: bold;
+  color: #ebebeb;
   z-index: 1000;
 }
-
-

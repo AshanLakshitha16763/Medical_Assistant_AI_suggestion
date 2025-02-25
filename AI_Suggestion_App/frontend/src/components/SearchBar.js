@@ -327,10 +327,11 @@ useEffect(() => {
         return (
             <div style={{ 
                 textAlign: 'center', 
-                color: 'gray', 
+                color: '#ffffff', 
                 padding: '20px',
                 border: '1px solid #ddd',
-                borderRadius: '8px'
+                borderRadius: '8px',
+                width: '100%',
             }}>
                 Please select a model to start suggestions
             </div>
@@ -338,7 +339,7 @@ useEffect(() => {
     }
 
     return (
-        <div className="search-bar-container" ref={containerRef} style={{ position: "relative", display: "inline-flex", alignItems: "center", width: "100%" }}>
+        <div className="search-bar-container" ref={containerRef} style={{ position: "relative", display: "inline-flex", alignItems: "center", width: "-webkit-fill-available" }}>
             <textarea
                 ref={inputRef}
                 value={input}
@@ -359,7 +360,6 @@ useEffect(() => {
                     width: "100%",
                     resize: "none",
                     fontSize: "16px",
-                    color: "#000",
                     background: "transparent",
                     boxSizing: "border-box",
                     fontFamily: "monospace",
@@ -379,7 +379,6 @@ useEffect(() => {
                     zIndex: 1,
                     padding: "16px 16px",
                     boxSizing: "border-box",
-                    color: "rgba(0, 0, 0, 0.3)",
                     whiteSpace: "pre-wrap",
                     overflowY: "hidden",
                     fontSize: "16px",
